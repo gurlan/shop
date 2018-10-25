@@ -27,6 +27,7 @@ class LoginController extends Controller{
     }
 
 
+
     /**
      * 后台登录方法
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -54,7 +55,6 @@ class LoginController extends Controller{
         $validator->errors()->add('field', '账号或者密码错误'); //添加错误到返回
 
         return redirect(route('admin.login'))->withErrors($validator)->withInput();
-
 
 
     }
