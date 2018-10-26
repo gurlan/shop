@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,13 +27,11 @@ class LoginController extends Controller{
         return view('admin.login.index');
     }
 
-
-
     /**
      * 后台登录方法
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function login(Request $request){
+    public function login(Request $request,Admin $admin){
 
         $validator  = Validator::make($request->all(), [
             'username' => 'required',
@@ -52,8 +51,10 @@ class LoginController extends Controller{
         }
 
 
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            return redirect(route('admin.index')); //验证成功后跳转
+        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
+
+            $admin->login(Auth::guard('admin')->id());
+            return redirect(route('admin.admin.index')); //验证成功后跳转
         }
 
         $validator->errors()->add('field', '账号或者密码错误'); //添加错误到返回
@@ -62,7 +63,12 @@ class LoginController extends Controller{
 
     }
 
-
-
-
+    /**
+     * 退出
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logout(){
+        Auth::logout();
+        return view('admin.login.index');
+    }
 }

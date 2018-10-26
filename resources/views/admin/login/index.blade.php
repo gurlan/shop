@@ -34,7 +34,7 @@
 
                     <div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
                     <div>
-                        <p>{{$errors->all()[0]}}111</p>
+                        <p>{{$errors->all()[0]}}</p>
                     </div>
                 </form>
             </div>

@@ -12,14 +12,10 @@
                 <li><a href="#">Dashboard</a></li>
                 <li class="active">Data</li>
             </ol>
-
         </div>
         <div id="page-inner">
-
-
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3">
-
                     <div class="card horizontal cardIcon waves-effect waves-dark">
                         <div class="card-image red">
                             <i class="fa fa-eye fa-5x"></i>
@@ -33,7 +29,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3">
 
@@ -52,7 +47,6 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3">
-
                     <div class="card horizontal cardIcon waves-effect waves-dark">
                         <div class="card-image blue">
                             <i class="fa fa-comments fa-5x"></i>
@@ -66,7 +60,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3">
 
@@ -83,10 +76,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <!-- /. ROW  -->
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3">
@@ -123,7 +114,6 @@
                 </div>
             </div><!--/.row-->
 
-
             <div class="row">
                 <div class="col-md-5">
                     <div class="card">
@@ -147,9 +137,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
 
             <div class="row">
                 <div class="col-md-9 col-sm-12 col-xs-12">
@@ -180,8 +168,6 @@
                 </div>
             </div>
             <!-- /. ROW  -->
-
-
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="card">
@@ -251,8 +237,6 @@
                             </ul>
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <!-- /. ROW  -->
@@ -267,13 +251,6 @@
                     <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
                 </ul>
             </div>
-
-            <footer><p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank"
-                                                                                 href="http://www.mycodes.net/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
-                </p>
-
-
-            </footer>
         </div>
         <!-- /. PAGE INNER  -->
     </div>

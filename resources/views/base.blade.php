@@ -7,18 +7,20 @@
     <title>Home</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
+
     <!-- Bootstrap Styles-->
-    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link href="{{asset('/admin/css/bootstrap.css')}}" rel="stylesheet"/>
     <!-- FontAwesome Styles-->
-    <link href="css/font-awesome.css" rel="stylesheet"/>
+    <link href="{{asset('/admin/css/font-awesome.css')}}" rel="stylesheet"/>
     <!-- Morris Chart Styles-->
-    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
+    <link href="{{asset('/admin/js/morris/morris-0.4.3.min.css')}}" rel="stylesheet"/>
     <!-- Custom Styles-->
-    <link href="css/custom-styles.css" rel="stylesheet"/>
+    <link href="{{asset('/admin/css/custom-styles.css')}}" rel="stylesheet"/>
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css">
+    <link rel="stylesheet" href="{{asset('/admin/js/Lightweight-Chart/cssCharts.css')}}">
+
+    <link rel="stylesheet" href="{{asset('/admin/materialize/css/materialize.min.css')}}" media="screen,projection" />
 </head>
 
 <body>
@@ -57,7 +59,7 @@
         </li>
         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
         </li>
-        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        <li><a href="{{route('admin.logout')}}"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
         </li>
     </ul>
     <ul id="dropdown2" class="dropdown-content w250">
@@ -238,7 +240,7 @@
                         Dashboard</a>
                 </li>
                 <li>
-                    <a href="ui-elements.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> UI Elements</a>
+                    <a href="{{route('admin.admin.index')}}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>管理员</a>
                 </li>
                 <li>
                     <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> Charts</a>
@@ -248,8 +250,7 @@
                 </li>
 
                 <li>
-                    <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive
-                        Tables</a>
+                    <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive Tables</a>
                 </li>
                 <li>
                     <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> Forms </a>
@@ -297,27 +298,27 @@
 <!-- /. WRAPPER  -->
 <!-- JS Scripts-->
 <!-- jQuery Js -->
-<script src="js/jquery-1.10.2.js"></script>
+<script src="{{asset('/admin/js/jquery-1.10.2.js')}}"></script>
 
 <!-- Bootstrap Js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('/admin/js/bootstrap.min.js')}}"></script>
 
-<script src="materialize/js/materialize.min.js"></script>
+<script src="{{asset('/admin/materialize/js/materialize.min.js')}}"></script>
 
 <!-- Metis Menu Js -->
-<script src="js/jquery.metisMenu.js"></script>
+<script src="{{asset('/admin/js/jquery.metisMenu.js')}}"></script>
 <!-- Morris Chart Js -->
-<script src="js/morris/raphael-2.1.0.min.js"></script>
-<script src="js/morris/morris.js"></script>
+<script src="{{asset('/admin/js/morris/raphael-2.1.0.min.js')}}"></script>
+<script src="{{asset('/admin/js/morris/morris.js')}}"></script>
 
 
-<script src="js/easypiechart.js"></script>
-<script src="js/easypiechart-data.js"></script>
+<script src="{{asset('/admin/js/easypiechart.js')}}"></script>
+<script src="{{asset('/admin/js/easypiechart-data.js')}}"></script>
 
-<script src="js/Lightweight-Chart/jquery.chart.js"></script>
+<script src="{{asset('/admin/js/Lightweight-Chart/jquery.chart.js')}}"></script>
 
 <!-- Custom Js -->
-<script src="js/custom-scripts.js"></script>
+<script src="{{asset('/admin/js/custom-scripts.js')}}"></script>
 
 
 </body>
