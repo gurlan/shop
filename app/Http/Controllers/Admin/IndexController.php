@@ -17,7 +17,7 @@ class IndexController extends Controller{
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-
+    //测试git
         return view('admin.index.index');
     }
 

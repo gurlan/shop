@@ -1,195 +1,323 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta charset="utf-8"/>
-<title>后台管理系统</title>
-<meta name="author" content="DeathGhost" />
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<!--[if lt IE 9]>
-<script src="js/html5.js"></script>
-<![endif]-->
-<script src="js/jquery.js"></script>
-<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Home</title>
 
-	(function($){
-		$(window).load(function(){
-			
-			$("a[rel='load-content']").click(function(e){
-				e.preventDefault();
-				var url=$(this).attr("href");
-				$.get(url,function(data){
-					$(".content .mCSB_container").append(data); //load new content inside .mCSB_container
-					//scroll-to appended content 
-					$(".content").mCustomScrollbar("scrollTo","h2:last");
-				});
-			});
-			
-			$(".content").delegate("a[href='top']","click",function(e){
-				e.preventDefault();
-				$(".content").mCustomScrollbar("scrollTo",$(this).attr("href"));
-			});
-			
-		});
-	})(jQuery);
-</script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="css/custom-styles.css" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css">
 </head>
+
 <body>
-<!--header-->
-<header>
- <h1><img src="images/admin_logo.png"/></h1>
- <ul class="rt_nav">
-  <li><a href="http://www.mycodes.net" target="_blank" class="website_icon">站点首页</a></li>
-  <li><a href="#" class="clear_icon">清除缓存</a></li>
-  <li><a href="#" class="admin_icon">DeathGhost</a></li>
-  <li><a href="#" class="set_icon">账号设置</a></li>
-  <li><a href="login.html" class="quit_icon">安全退出</a></li>
- </ul>
-</header>
-<!--aside nav-->
-<!--aside nav-->
-<aside class="lt_aside_nav content mCustomScrollbar">
- <h2><a href="index.html">起始页</a></h2>
- <ul>
-  <li>
-   <dl>
-    <dt>常用布局示例</dt>
-    <!--当前链接则添加class:active-->
-    <dd><a href="product_list.html" class="active">商品列表示例</a></dd>
-    <dd><a href="product_detail.html">商品详情示例</a></dd>
-    <dd><a href="recycle_bin.html">商品回收站示例</a></dd>
-   </dl>
-  </li>
-  <li>
-   <dl>
-    <dt>订单信息</dt>
-    <dd><a href="order_list.html">订单列表示例</a></dd>
-    <dd><a href="order_detail.html">订单详情示例</a></dd>
-   </dl>
-  </li>
-  <li>
-   <dl>
-    <dt>会员管理</dt>
-    <dd><a href="user_list.html">会员列表示例</a></dd>
-    <dd><a href="user_detail.html">添加会员（详情）示例</a></dd>
-    <dd><a href="user_rank.html">会员等级示例</a></dd>
-    <dd><a href="adjust_funding.html">会员资金管理示例</a></dd>
-   </dl>
-  </li>
-  <li>
-   <dl>
-    <dt>基础设置</dt>
-    <dd><a href="setting.html">站点基础设置示例</a></dd>
-   </dl>
-  </li>
-  <li>
-   <dl>
-    <dt>配送与支付设置</dt>
-    <dd><a href="express_list.html">配送方式</a></dd>
-    <dd><a href="pay_list.html">支付方式</a></dd>
-   </dl>
-  </li>
-  <li>
-   <dl>
-    <dt>在线统计</dt>
-    <dd><a href="discharge_statistic.html">流量统计</a></dd>
-    <dd><a href="sales_volume.html">销售额统计</a></dd>
-   </dl>
-  </li>
-  <li>
-   <p class="btm_infor">© DeathGhost.cn 版权所有</p>
-  </li>
- </ul>
-</aside>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse"
+                    data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">insert_chart</i>
+                <strong>TRACK</strong></a>
 
-@yield('content')
-
-<section class="rt_wrap content mCustomScrollbar">
- <div class="rt_content">
-      <div class="page_title">
-       <h2 class="fl">数据信息统计</h2>
-      </div>
-    <div class="dataStatistic">
-        <div id="cylindrical">
+            <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
         </div>
-    </div>
- </div>
-</section>
 
-<script src="js/amcharts.js" type="text/javascript"></script>
-<script src="js/serial.js" type="text/javascript"></script>
-<script src="js/pie.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function (e) {
-        GetSerialChart();
-        MakeChart(json);
-    });
-    var json = [
-  { "name": "数据1", "value": "35" },
-  { "name": "数据2", "value": "60" },
-  { "name": "数据3", "value": "22" },
-  { "name": "数据4", "value": "65" },
-  { "name": "数据5", "value": "35" },
-  { "name": "数据6", "value": "22" },
-  { "name": "数据7", "value": "43" },
-  { "name": "数据8", "value": "55" }
-  ]
-    //柱状图
-    function GetSerialChart() {
+        <ul class="nav navbar-top-links navbar-right">
+            <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i
+                            class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i
+                            class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i
+                            class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i
+                            class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
+        </li>
+        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+        </li>
+        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </li>
+    </ul>
+    <ul id="dropdown2" class="dropdown-content w250">
+        <li>
+            <a href="#">
+                <div>
+                    <i class="fa fa-comment fa-fw"></i> New Comment
+                    <span class="pull-right text-muted small">4 min</span>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                    <span class="pull-right text-muted small">12 min</span>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                    <span class="pull-right text-muted small">4 min</span>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <i class="fa fa-tasks fa-fw"></i> New Task
+                    <span class="pull-right text-muted small">4 min</span>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                    <span class="pull-right text-muted small">4 min</span>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a class="text-center" href="#">
+                <strong>See All Alerts</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+    <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+        <li>
+            <a href="#">
+                <div>
+                    <p>
+                        <strong>Task 1</strong>
+                        <span class="pull-right text-muted">60% Complete</span>
+                    </p>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60"
+                             aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                            <span class="sr-only">60% Complete (success)</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <p>
+                        <strong>Task 2</strong>
+                        <span class="pull-right text-muted">28% Complete</span>
+                    </p>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28"
+                             aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+                            <span class="sr-only">28% Complete</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <p>
+                        <strong>Task 3</strong>
+                        <span class="pull-right text-muted">60% Complete</span>
+                    </p>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                             aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                            <span class="sr-only">60% Complete (warning)</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <p>
+                        <strong>Task 4</strong>
+                        <span class="pull-right text-muted">85% Complete</span>
+                    </p>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85"
+                             aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+                            <span class="sr-only">85% Complete (danger)</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+    </ul>
+    <ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
+        <li>
+            <a href="#">
+                <div>
+                    <strong>John Doe</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Today</em>
+                                    </span>
+                </div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                </div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#">
+                <div>
+                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                </div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a class="text-center" href="#">
+                <strong>Read All Messages</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
 
-        chart = new AmCharts.AmSerialChart();
-        chart.dataProvider = json;
-        //json数据的key
-        chart.categoryField = "name";
-        //不选择
-        chart.rotate = false;
-        //值越大柱状图面积越大
-        chart.depth3D = 20;
-        //柱子旋转角度角度
-        chart.angle = 30;
-        var mCtCategoryAxis = chart.categoryAxis;
-        mCtCategoryAxis.axisColor = "#efefef";
-        //背景颜色透明度
-        mCtCategoryAxis.fillAlpha = 0.5;
-        //背景边框线透明度
-        mCtCategoryAxis.gridAlpha = 0;
-        mCtCategoryAxis.fillColor = "#efefef";
-        var valueAxis = new AmCharts.ValueAxis();
-        //左边刻度线颜色
-        valueAxis.axisColor = "#ccc";
-        //标题
-        valueAxis.title = "3D柱状图Demo";
-        //刻度线透明度
-        valueAxis.gridAlpha = 0.2;
-        chart.addValueAxis(valueAxis);
-        var graph = new AmCharts.AmGraph();
-        graph.title = "value";
-        graph.valueField = "value";
-        graph.type = "column";
-        //鼠标移入提示信息
-        graph.balloonText = "测试数据[[category]] [[value]]";
-        //边框透明度
-        graph.lineAlpha = 0.3;
-        //填充颜色
-        graph.fillColors = "#b9121b";
-        graph.fillAlphas = 1;
+                <li>
+                    <a class="active-menu waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i>
+                        Dashboard</a>
+                </li>
+                <li>
+                    <a href="ui-elements.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> UI Elements</a>
+                </li>
+                <li>
+                    <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> Charts</a>
+                </li>
+                <li>
+                    <a href="tab-panel.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs & Panels</a>
+                </li>
 
-        chart.addGraph(graph);
-
-        // CURSOR
-        var chartCursor = new AmCharts.ChartCursor();
-        chartCursor.cursorAlpha = 0;
-        chartCursor.zoomable = false;
-        chartCursor.categoryBalloonEnabled = false;
-        chart.addChartCursor(chartCursor);
-
-        chart.creditsPosition = "top-right";
-
-        //显示在Main div中
-        chart.write("cylindrical");
-    }
+                <li>
+                    <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive
+                        Tables</a>
+                </li>
+                <li>
+                    <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> Forms </a>
+                </li>
 
 
-</script>
+                <li>
+                    <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="#">Second Level Link</a>
+                        </li>
+                        <li>
+                            <a href="#">Second Level Link</a>
+                        </li>
+                        <li>
+                            <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li>
+                                    <a href="#">Third Level Link</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level Link</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level Link</a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="empty.html" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+    @yield('content')
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="js/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Js -->
+<script src="js/bootstrap.min.js"></script>
+
+<script src="materialize/js/materialize.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="js/jquery.metisMenu.js"></script>
+<!-- Morris Chart Js -->
+<script src="js/morris/raphael-2.1.0.min.js"></script>
+<script src="js/morris/morris.js"></script>
+
+
+<script src="js/easypiechart.js"></script>
+<script src="js/easypiechart-data.js"></script>
+
+<script src="js/Lightweight-Chart/jquery.chart.js"></script>
+
+<!-- Custom Js -->
+<script src="js/custom-scripts.js"></script>
+
+
 </body>
-</html>

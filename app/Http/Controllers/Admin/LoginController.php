@@ -35,17 +35,21 @@ class LoginController extends Controller{
     public function login(Request $request){
 
         $validator  = Validator::make($request->all(), [
-            'username' => 'bail|required',
-            'password' => 'bail|required',
-            'captcha' => 'bail|required|captcha',
+            'username' => 'required',
+            'password' => 'required',
+
         ],[
             'username.required' => '用户名必填',
             'password.required'  => '密码必填',
-            'captcha.required' => '验证码必填',
-            'captcha.captcha' => '验证码错误',
+
         ]);
 
-        $request->flashOnly(['username']); //闪存用户名
+
+        if ($validator->fails()) {
+
+            $request->flashOnly(['username']); //闪存用户名
+            return redirect(route('admin.login'))->withErrors($validator)->withInput();
+        }
 
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
@@ -55,7 +59,6 @@ class LoginController extends Controller{
         $validator->errors()->add('field', '账号或者密码错误'); //添加错误到返回
 
         return redirect(route('admin.login'))->withErrors($validator)->withInput();
-
 
     }
 

@@ -1,69 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="no-js">
 <head>
-<meta charset="utf-8"/>
-<title>后台登录</title>
-<meta name="author" content="DeathGhost" />
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<style>
-body{height:100%;background:#16a085;overflow:hidden;}
-canvas{z-index:-1;position:absolute;}
-</style>
-<script src="js/jquery.js"></script>
-<script src="layer/layer.js"></script>
-<script src="js/verificationNumbers.js"></script>
-<script src="js/Particleground.js"></script>
-<script>
-$(document).ready(function() {
-  //粒子背景特效
-  $('body').particleground({
-    dotColor: '#5cbdaa',
-    lineColor: '#5cbdaa'
-  });
-
-});
-</script>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>login</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="css/component.css"/>
+    <!--[if IE]>
+    <script src="js/html5.js"></script>
+    <![endif]-->
 </head>
 <body>
-<dl class="admin_login">
- <dt>
-  <strong>站点后台管理系统</strong>
-  <em>Management System</em>
- </dt>
-    <form action="{{route('admin.doLogin')}}" method="post">
-        @csrf
-        <dd class="user_icon">
-            <input type="text" placeholder="账号" value="{{ old('username') }}" name="username" class="login_txtbx"/>
-        </dd>
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="logo_box">
+                <h3>欢迎你</h3>
+                <form action="{{route('admin.doLogin')}}" id="form" method="post">
+                    @csrf
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户" name="username" value="{{ old('username') }}">
+                    </div>
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" type="password" name="password" placeholder="请输入密码">
+                    </div>
 
-        <dd class="pwd_icon">
-            <input type="password" placeholder="密码" name="password" class="login_txtbx"/>
-        </dd>
-        <dd class="val_icon">
-            <div class="checkcode">
-                <input type="text" id="J_codetext" placeholder="验证码" maxlength="5" name="captcha" class="login_txtbx">
-{{--
-                <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
---}}
-                <img src="{{captcha_src()}}" style="cursor: pointer;position: absolute;margin-left: 53px" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                    <div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+                    <div>
+                        <p>{{$errors->all()[0]}}111</p>
+                    </div>
+                </form>
             </div>
-        </dd>
+        </div>
+    </div>
+</div><!-- /container -->
+<script>
+    $('.submit').click(function(){
+        $('#form').submit();
+    })
+</script>
+<script src="js/TweenLite.min.js"></script>
+<script src="js/EasePack.min.js"></script>
+<script src="js/rAF.js"></script>
+<script src="js/demo-1.js"></script>
+<div style="text-align:center;">
 
-        <dd>
-            <input type="submit" value="立即登录" class="submit_btn"/>
-        </dd>
-        <dd>
-            <p>{{$errors->all()[0]}}</p>
-        </dd>
-    </form>
 
-
-
-
- <dd>
-  <p>© 2015-2016 DeathGhost 版权所有</p>
-  <p>陕B2-20080224-1</p>
- </dd>
-</dl>
+</div>
 </body>
 </html>
+
