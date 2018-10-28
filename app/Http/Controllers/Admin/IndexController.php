@@ -18,7 +18,7 @@ class IndexController extends Controller{
      */
     public function index(){
     //测试git
-        return view('admin.index.index');
+        return view('console.index.index');
     }
 
 

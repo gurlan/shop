@@ -37,4 +37,14 @@ class Admin extends Authenticatable
         return $this->where('id',$id[0])->first();
     }
 
+    /**
+     * 修改密码
+     * @param $id
+     * @param $password
+     * @return bool
+     */
+    public function password($id, $password){
+      return  $this->where('id',$id)->update(['password'=>$password]);
+    }
+
 }

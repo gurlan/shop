@@ -37,6 +37,13 @@
                                     <p>最后登录：{{date('Y-m-d H:i:s',$data->last_login)}}</p>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="password" type="password" class="validate">
+                                    <label for="password">密码</label>
+                                </div>
+                            </div>
                         </form>
 
                         <div class="clearBoth"></div>
