@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'user_name', 'password',
     ];
 
     /**
@@ -33,4 +33,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public $table = 'user';
+
+    public function getList($where = array()){
+        return $this->where($where)->orderBy('id','desc')->paginate(10);
+    }
+
+    public function del($user_id){
+        return $this->where('id',$user_id)->delete();
+    }
+
 }

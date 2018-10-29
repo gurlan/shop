@@ -155,13 +155,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!-- /.nav-second-level -->
 					</li>
 					<li>
-						<a href="#"><i class="fa fa-envelope nav_icon"></i>Mailbox<span class="fa arrow"></span></a>
+						<a href="#"><i class="fa fa-envelope nav_icon"></i>会员管理<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li>
-								<a href="inbox.html">Inbox</a>
+								<a href="{{route('admin.user.index')}}">会员列表</a>
 							</li>
 							<li>
-								<a href="compose.html">Compose email</a>
+								<a href="{{route('admin.user.coupon')}}">会员优惠券</a>
+							</li>
+							<li>
+								<a href="{{route('admin.coupon.index')}}">优惠券</a>
 							</li>
 						</ul>
 						<!-- /.nav-second-level -->
