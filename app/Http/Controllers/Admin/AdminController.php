@@ -20,12 +20,23 @@ class AdminController extends Controller
         return view('console.admin.index',array('admins'=>$adminService->adminList())) ;
     }
 
+    /**
+     * 管理员修改密码页面
+     * @param AdminService $adminService
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(AdminService $adminService){
         $data = $adminService->adminInfo(Auth::guard('admin')->id());
         return view('console.admin.edit',array('data'=>$data)) ;
     }
 
-    public function doEdit(Request $request,AdminService $adminService){
+    /**
+     * 管理员执行修改
+     * @param Request $request
+     * @param AdminService $adminService
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function doEdit(Request $request, AdminService $adminService){
         $validator  = Validator::make($request->all(), [
             'password' => 'required|min:6',
         ],[
@@ -37,8 +48,9 @@ class AdminController extends Controller
         }
         //修改密码
         $adminService->password(Auth::guard('admin')->id(),$request->input('password'));
-
         return redirect(route('admin.admin.index'));
     }
+
+
 
 }
