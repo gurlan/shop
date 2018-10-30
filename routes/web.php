@@ -45,4 +45,19 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
     Route::get('/goods/edit','GoodsController@edit')->name('goods.edit');
     Route::post('/goods/doEdit','GoodsController@doEdit')->name('goods.doEdit');
 
+
+
+    /*会员部分*/
+    Route::get('/user','UserController@index')->name('user.index');
+    Route::get('/user/edit','UserController@edit')->name('user.edit');
+    Route::get('/user/del','UserController@del')->name('user.del');
+
+
+    Route::get('/user/coupon','UserController@coupon')->name('user.coupon');
+
+    /*优惠券部分*/
+    Route::get('/coupon','CouponController@index')->name('coupon.index');
+    Route::get('/coupon/del','CouponController@del')->name('coupon.del');
+
+
 });
