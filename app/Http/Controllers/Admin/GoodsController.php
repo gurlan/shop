@@ -67,8 +67,51 @@ class GoodsController extends Controller
 
     }
 
-    public function delete(Request $request){
+    /**
+     * 编辑视图
+     * @param Request $request
+     * @param CategoryService $categoryService
+     * @param GoodsService $goodsService
+     * @return mixed
+     */
+    public function edit(Request $request, CategoryService $categoryService, GoodsService $goodsService){
+        $category = $categoryService->getList(0);
+        $level = self::$level;
+        $goods = $goodsService->goodsInfo($request->id);
 
+        return view('console.goods.edit')->with('category',$category)->with('level',$level)->with('goods',$goods);
+    }
+
+
+    public function doEdit(Request $request,GoodsService $goodsService){
+        $validator  = Validator::make($request->all(), [
+            'goods_name' => 'required',
+            'goods_price' => 'min:0',
+        ],[
+            'goods_name.required'  => '名称必填',
+            'goods_price.min'  => '价格最小是0',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('admin.goods.edit'))->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('thumb')) {
+            $request->thumb = $request->file('thumb')->store('thumb');
+        }
+        $goodsService->edit($request);
+        return redirect(route('admin.goods.index'));
+    }
+
+    /**
+     * 删除商品
+     * @param Request $request
+     * @param GoodsService $goodsService
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function del(Request $request, GoodsService $goodsService){
+        $goodsService->del($request->id);
+        return redirect(route('admin.goods.index'));
     }
 
 

@@ -6,7 +6,7 @@
                 <h3>Forms</h3>
                 <div class="tab-content">
                     <div class="tab-pane active" id="horizontal-form">
-                        <form class="form-horizontal" method="post" action="{{route('admin.goods.doAdd')}}"
+                        <form class="form-horizontal" method="post" action="{{route('admin.goods.doEdit')}}"
                               enctype="multipart/form-data">
                             @csrf
 
@@ -14,7 +14,7 @@
                                 <label for="focusedinput" class="col-sm-2 control-label">商品名称</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control1" id="focusedinput" placeholder="商品名称"
-                                           name="goods_name" value="{{old('goods_name')}}">
+                                           name="goods_name" value="{{$goods->goods_name}}">
                                 </div>
                                 <div class="col-sm-2">
                                     <p class="help-block">  {{$errors->first('goods_name')}}</p>
@@ -26,7 +26,7 @@
                                 <div class="col-sm-8">
                                     <select name="cat_id" id="selector1" class="form-control1">
                                         @foreach($category as $v)
-                                            <option value="{{$v['id']}}">{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}"  @if($v['id'] == $goods->cat_id) selected @endif >{{$v['name']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -35,9 +35,9 @@
                             <div class="form-group">
                                 <label for="selector1" class="col-sm-2 control-label">难度</label>
                                 <div class="col-sm-8">
-                                    <select name="goods_id" id="selector1" class="form-control1">
+                                    <select name="difficulty" id="selector1" class="form-control1">
                                         @foreach($level as $k=>$v)
-                                            <option value="{{$k}}">{{$v}}</option>
+                                            <option value="{{$k}}" @if($k==$goods->difficulty) selected @endif>{{$v}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,7 +47,7 @@
                                 <label for="focusedinput" class="col-sm-2 control-label">排序</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control1" id="focusedinput" name="sort"
-                                           value="{{old('sort')?old('sort'):0}}">
+                                           value="{{$goods->sort}}">
                                 </div>
 
                             </div>
@@ -56,7 +56,7 @@
                                 <label for="focusedinput" class="col-sm-2 control-label">价格</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control1" id="focusedinput" placeholder="0.00"
-                                           name="goods_price" value="{{old('goods_price')}}">
+                                           name="goods_price" value="{{$goods->goods_price}}">
                                 </div>
                                 <div class="col-sm-2">
                                     <p class="help-block">  {{$errors->first('goods_price')}}</p>
@@ -75,25 +75,38 @@
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">描述</label>
-                                <script  type="text/javascript" id="description" name="description">{!!old(description)!!}</script>
+                                <div class="col-sm-8">
+                                    <script  type="text/javascript" id="description" name="description">{!! html_entity_decode($goods->description)!!}</script>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">简介</label>
-                                <script  type="text/javascript" id="introduce" name="introduce">{!!old(introduce)!!}</script>
+
+                                    <div class="col-sm-8">
+                                        <script  type="text/javascript" id="introduce" name="introduce">{!! html_entity_decode($goods->introduce) !!}</script>
+                                    </div>
+
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">须知</label>
-                                <script  type="text/javascript" id="notice" name="notice">{!!old(notice)!!}</script>
+
+                                <div class="col-sm-8">
+                                    <script  type="text/javascript" id="notice" name="notice">{!! html_entity_decode($goods->notice)!!}</script>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">详情</label>
-                                <script  type="text/javascript" id="content" name="content">{!!old(content)!!}</script>
+
+
+                                <div class="col-sm-8">
+                                    <script  type="text/javascript" id="content" name="content">{!! html_entity_decode($goods->content) !!}</script>
+                                </div>
                             </div>
 
-
+                                <input type="hidden" value="{{$goods->id}}" name="id">
                             <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-8 col-sm-offset-2">

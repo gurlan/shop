@@ -44,9 +44,26 @@ class GoodsService
         return $this->goods->add($request);
     }
 
+    /**
+     * 删除
+     * @param $goods_id
+     */
     public function del($goods_id){
         return $this->goods->del($goods_id);
     }
 
+    /**
+     * 商品信息
+     * @param $goods_id
+     * @return mixed
+     */
+    public function goodsInfo($goods_id){
+        return $this->goods->goodsInfo($goods_id);
+    }
+
+
+    public function edit($request){
+        return $this->goods->edit($request);
+    }
 
 }

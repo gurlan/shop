@@ -170,7 +170,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!-- /.nav-second-level -->
 					</li>
 					<li>
-						<a href="widgets.html"><i class="fa fa-flask nav_icon"></i>Widgets</a>
+						<a href="{{route('admin.banner.index')}}"><i class="fa fa-flask nav_icon"></i>广告管理</a>
 					</li>
 					<li>
 						<a href="#"><i class="fa fa-check-square-o nav_icon"></i>Forms<span class="fa arrow"></span></a>

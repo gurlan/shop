@@ -33,8 +33,7 @@
                         <td>{{$v->sort}}</td>
                         <td>{{$v->cat_name}}</td>
                         <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
-                        <td><a href="{{route('admin.goods.edit',array('id'=>$v->id))}}">编辑</a></td>
-                        <td><a href="{{route('admin.goods.del',array('id'=>$v->id))}}">删除</a></td>
+                        <td><a href="{{route('admin.goods.edit',array('id'=>$v->id))}}">编辑</a> <a href="{{route('admin.goods.del',array('id'=>$v->id))}}">删除</a></td>
                     </tr>
                     @endforeach
                     </tbody>

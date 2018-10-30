@@ -44,6 +44,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
     Route::post('/goods/doAdd','GoodsController@doAdd')->name('goods.doAdd');
     Route::get('/goods/edit','GoodsController@edit')->name('goods.edit');
     Route::post('/goods/doEdit','GoodsController@doEdit')->name('goods.doEdit');
+    Route::get('/goods/del','GoodsController@del')->name('goods.del');
 
 
 
@@ -59,5 +60,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
     Route::get('/coupon','CouponController@index')->name('coupon.index');
     Route::get('/coupon/del','CouponController@del')->name('coupon.del');
 
+    /*广告部分*/
+    Route::get('/banner','BannerController@index')->name('banner.index');
+    Route::get('/banner/del','BannerController@del')->name('banner.del');
+    Route::get('/banner/add','BannerController@add')->name('banner.add');
+    Route::post('/banner/doAdd','BannerController@doAdd')->name('banner.doAdd');
 
 });
