@@ -33,4 +33,16 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
 
     /*商品分类*/
     Route::get('/category','CategoryController@index')->name('category.index');
+    Route::get('/category/add','CategoryController@add')->name('category.add');
+    Route::post('/category/doAdd','CategoryController@doAdd')->name('category.doAdd');
+    Route::get('/category/edit','CategoryController@edit')->name('category.edit');
+    Route::post('/category/doEdit','CategoryController@doEdit')->name('category.doEdit');
+
+    /*商品列表*/
+    Route::get('/goods','GoodsController@index')->name('goods.index');
+    Route::get('/goods/add','GoodsController@add')->name('goods.add');
+    Route::post('/goods/doAdd','GoodsController@doAdd')->name('goods.doAdd');
+    Route::get('/goods/edit','GoodsController@edit')->name('goods.edit');
+    Route::post('/goods/doEdit','GoodsController@doEdit')->name('goods.doEdit');
+
 });

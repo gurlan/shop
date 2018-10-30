@@ -9,39 +9,44 @@
 
 namespace App\Services;
 use App\Models\Category;
+use App\Models\Goods;
 
 
-class CategoryService
+class GoodsService
 {
     protected  $category;
+    protected  $goods;
 
-    public function __construct(Category $category)
+    public function __construct(Category $category,Goods $goods)
     {
         $this->category = $category;
+        $this->goods = $goods;
     }
 
     /**
-     * 取得分类列表
+     * 取得商品列表
      * @param $pid
      * @return mixed
      */
-    public function getList($pid){
-       return $this->category->getList($pid);
+    public function getList($where=array()){
+
+       return $this->goods->getList($where);
     }
+
 
     /**
-     * 分类信息
-     * @param $id
+     * 添加商品
+     * @param $request
      * @return mixed
      */
-    public function categoryInfo($id){
-       return $this->category->categoryInfo($id);
-   }
+    public function add($request){
 
-    public function edit($request){
-        return $this->category->edit($request);
+        return $this->goods->add($request);
     }
 
+    public function del($goods_id){
+        return $this->goods->del($goods_id);
+    }
 
 
 }

@@ -7,6 +7,7 @@ class Category extends BaseModel
 {
     //
     protected $table = 'category';
+    public $timestamps = false;
 
     /**分类列表
      * @param $pid
@@ -44,4 +45,28 @@ class Category extends BaseModel
     public function categoryInfo($id){
         return $this->where('id',$id)->first();
     }
+
+    /**
+     * 添加分类
+     * @param $request
+     * @return mixed
+     */
+    public function add($request){
+        $data['name'] = $request->name;
+        $data['sort'] = $request->sort;
+        $data['pid'] = $request->pid;
+        return $this->insert($data);
+    }
+
+    /**
+     * 修改分类
+     * @param $request
+     * @return mixed
+     */
+    public function edit($request){
+        $data['name'] = $request->name;
+        $data['sort'] = $request->sort;
+        return $this->where('id',$request->id)->update($data);
+    }
+
 }

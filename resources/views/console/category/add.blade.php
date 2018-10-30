@@ -6,13 +6,13 @@
             <h3>Forms</h3>
             <div class="tab-content">
                 <div class="tab-pane active" id="horizontal-form">
-                    <form class="form-horizontal"  method="post" action="{{route('admin.category.doEdit')}}">
+                    <form class="form-horizontal"  method="post" action="{{route('admin.category.doAdd')}}">
                         @csrf
-                        <input type="hidden" name="id" value="{{$category->id}}">
+
                         <div class="form-group">
                             <label for="focusedinput" class="col-sm-2 control-label">分类名</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control1" id="focusedinput" placeholder="分类名" name="name" value="{{$category->name}}">
+                                <input type="text" class="form-control1" id="focusedinput" placeholder="分类名" name="name" >
                             </div>
                             <div class="col-sm-2">
                                 <p class="help-block">  {{$errors->first('name')}}</p>
@@ -22,9 +22,9 @@
                         <div class="form-group">
                             <label for="selector1" class="col-sm-2 control-label">上级分类</label>
                             <div class="col-sm-8">
-                                <select name="selector1" id="selector1" class="form-control1" name="pid">
+                                <select  id="selector1" class="form-control1" name="pid">
                                     @foreach($list as $v)
-                                    <option value="{{$v.id}}">{{$v['name']}}</option>
+                                    <option value="{{$v['id']}}">{{$v['name']}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label for="focusedinput" class="col-sm-2 control-label">排序</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control1" id="focusedinput" placeholder="排序" name="sort" value="{{$category->sort}}">
+                                <input type="text" class="form-control1" id="focusedinput" placeholder="排序" name="sort" >
                             </div>
                         </div>
 

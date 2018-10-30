@@ -38,6 +38,17 @@ class CategoryService
        return $this->category->categoryInfo($id);
    }
 
+    public function add($request){
+        return $this->category->add($request);
+    }
+    /**修改分类
+     * @param $request
+     * @return mixed
+     */
+    public function edit($request){
+        return $this->category->edit($request);
+    }
+
 
 
 }

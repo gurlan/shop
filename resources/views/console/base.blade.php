@@ -149,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="{{route('admin.category.index')}}">商品分类</a>
 							</li>
 							<li>
-								<a href="typography.html">Typography</a>
+								<a href="{{route('admin.goods.index')}}">商品列表</a>
 							</li>
 						</ul>
 						<!-- /.nav-second-level -->
@@ -215,5 +215,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- /#wrapper -->
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('console/js/bootstrap.min.js')}}"></script>
+
 </body>
 </html>
