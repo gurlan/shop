@@ -42,7 +42,7 @@ class BannerService
     public function add($request){
         $data['image'] = $request->image;
         $data['url'] = $request->url;
-        $data['sort'] = $request->sort;
+        $data['sort'] = intval($request->sort);
         $data['position'] = $request->position;
       return  $this->banner->insert($data);
     }

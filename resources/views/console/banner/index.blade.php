@@ -1,4 +1,4 @@
-@extends('console.base');
+@extends('console.base')
 
 @section('content')
 <div id="page-wrapper">
@@ -21,7 +21,7 @@
                     @foreach ($list as $v )
                     <tr>
                         <th scope="row">{{$v->id}}</th>
-                        <td><img src="{{asset('storage/app/'.$v->image)}}" /></td>
+                        <td><img src="{{asset($v->image)}}" style="width: 200px;height: 100px" /></td>
                         <td>{{$v->url}}</td>
                         <td><a href="{{route('admin.banner.del',array('id'=>$v->id))}}">删除</a></td>
                     </tr>

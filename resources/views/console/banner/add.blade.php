@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label for="focusedinput" class="col-sm-2 control-label">链接</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control1" id="focusedinput" name="sort"
+                                    <input type="text" class="form-control1" id="focusedinput" name="url"
                                            value="{{old('url')}}">
                                 </div>
 

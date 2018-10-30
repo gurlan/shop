@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Services\BannerService;
 use App\Services\GoodsService;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 
 class BannerController extends Controller
@@ -51,16 +52,20 @@ class BannerController extends Controller
      */
     public function doAdd(Request $request, BannerService $bannerService){
         if ($request->hasFile('image')) {
-            $request->image = $request->file('image')->store('banner');
+            $img = $request->file('image');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName =time().rand().".".$ext;
+
+             $file =  $img ->move('./upload/banner',$saveName);
+            $request->image  = $file->getPathname();
+
+
         }else{
             $position = Banner::$position;
             return view('console.banner.add')->with('error','图片不能为空')->with('position',$position);
         }
-
-        $img = $request->file('image');
-
-
-        $path = $img->store(date('Ymd'));
 
 
         $bannerService->add($request);
