@@ -152,9 +152,6 @@
                         </div>
                             @endif
                         @endforeach
-
-
-
                     </div>
 
                     <div class="small-box">

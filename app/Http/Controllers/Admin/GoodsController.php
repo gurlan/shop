@@ -140,8 +140,9 @@ class GoodsController extends Controller
     }
 
 
-    public function directory(){
-
+    public function collect(Request $request, GoodsService $goodsService){
+        $res =   $goodsService->collect($request->id);
+        return response()->json($res);
     }
 
 

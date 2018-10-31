@@ -116,5 +116,14 @@ class Goods extends Model
     }
 
 
+    public function content($goods_id,$data){
+        $str = '';
+        foreach ($data as $v){
+          $str.=  '<img src="'.asset($v['local_path']).'"/>';
+        }
+
+        $this->where('id',$goods_id)->update(['content'=>$str]);
+    }
+
 
 }

@@ -45,6 +45,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
     Route::get('/goods/edit','GoodsController@edit')->name('goods.edit');
     Route::post('/goods/doEdit','GoodsController@doEdit')->name('goods.doEdit');
     Route::get('/goods/del','GoodsController@del')->name('goods.del');
+    Route::get('/goods/collect','GoodsController@collect')->name('goods.collect');
 
 
 

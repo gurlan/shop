@@ -33,7 +33,10 @@
                         <td>{{$v->sort}}</td>
                         <td>{{$v->cat_name}}</td>
                         <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
-                        <td><a href="{{route('admin.goods.edit',array('id'=>$v->id))}}">编辑</a> <a href="{{route('admin.goods.del',array('id'=>$v->id))}}">删除</a></td>
+                        <td><a href="{{route('admin.goods.edit',array('id'=>$v->id))}}">编辑</a>
+                            <a href="{{route('admin.goods.del',array('id'=>$v->id))}}">删除</a>
+                            <a class="collect" data-href="{{route('admin.goods.collect',array('id'=>$v->id))}}">采集</a>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -45,4 +48,15 @@
 
     </div>
 </div>
+    <script>
+        $('.collect').click(function () {
+            var url = $(this).attr('data-href');
+            alert(url);
+            $.getJSON(url,function (res) {
+                if(res){
+                    alert(res.msg)
+                }
+            })
+        })
+    </script>
     @endsection
