@@ -58,8 +58,18 @@ class GoodsController extends Controller
             return redirect(route('admin.goods.add'))->withErrors($validator)->withInput();
         }
         if ($request->hasFile('thumb')) {
-            $request->thumb = $request->file('thumb')->store('thumb');
 
+            $img = $request->file('thumb');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName =time().rand().".".$ext;
+            //迁移文件
+            $file =  $img ->move('./upload/goods',$saveName);
+
+            $request->thumb  = $file->getPathname();
+
+            $request->thumb  = str_replace('./','/',str_replace('\\','/',$request->thumb));
         }
         $goodsService->add($request);
 
@@ -78,12 +88,17 @@ class GoodsController extends Controller
         $category = $categoryService->getList(0);
         $level = self::$level;
         $goods = $goodsService->goodsInfo($request->id);
-
         return view('console.goods.edit')->with('category',$category)->with('level',$level)->with('goods',$goods);
     }
 
 
-    public function doEdit(Request $request,GoodsService $goodsService){
+    /**
+     * 执行修改
+     * @param Request $request
+     * @param GoodsService $goodsService
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function doEdit(Request $request, GoodsService $goodsService){
         $validator  = Validator::make($request->all(), [
             'goods_name' => 'required',
             'goods_price' => 'min:0',
@@ -97,8 +112,18 @@ class GoodsController extends Controller
         }
 
         if ($request->hasFile('thumb')) {
-            $request->thumb = $request->file('thumb')->store('thumb');
+
+            $img = $request->file('thumb');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName =time().rand().".".$ext;
+
+            $file =  $img ->move('./upload/goods',$saveName);
+
+            $request->thumb  = str_replace('./','/',str_replace('\\','/',$file->getPathname()));
         }
+
         $goodsService->edit($request);
         return redirect(route('admin.goods.index'));
     }
@@ -112,6 +137,11 @@ class GoodsController extends Controller
     public function del(Request $request, GoodsService $goodsService){
         $goodsService->del($request->id);
         return redirect(route('admin.goods.index'));
+    }
+
+
+    public function directory(){
+
     }
 
 

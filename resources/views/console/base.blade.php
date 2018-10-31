@@ -189,16 +189,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a href="{{route('admin.banner.index')}}"><i class="fa fa-flask nav_icon"></i>广告管理</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-check-square-o nav_icon"></i>Forms<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="forms.html">Basic Forms</a>
-                            </li>
-                            <li>
-                                <a href="validation.html">Validation</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
+                        <a href="{{route('admin.news.index')}}"><i class="fa fa-check-square-o nav_icon">文章管理</i></a>
+
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-table nav_icon"></i>Tables<span class="fa arrow"></span></a>

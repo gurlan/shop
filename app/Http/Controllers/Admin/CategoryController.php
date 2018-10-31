@@ -48,6 +48,20 @@ class CategoryController extends Controller
             return redirect(route('admin.category.add'))->withErrors($validator)->withInput();
         }
 
+        if ($request->hasFile('thumb')) {
+
+            $img = $request->file('thumb');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName = time().rand().".".$ext;
+
+            $img =  $img ->move('./upload/category',$saveName);
+
+            $request->thumb  = $img->getPathname();
+            $request->thumb  = str_replace('./','/',str_replace('\\','/',$request->thumb));
+        }
+
         $categoryService->add($request);
         return redirect(route('admin.category.index'));
 
@@ -80,6 +94,22 @@ class CategoryController extends Controller
         if ($validator->fails()) {
             return redirect(route('admin.category.edit'))->withErrors($validator)->withInput();
         }
+        if ($request->hasFile('thumb')) {
+
+            $img = $request->file('thumb');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName =time().rand().".".$ext;
+
+            $img =  $img ->move('./upload/category',$saveName);
+
+            $request->thumb  = $img->getPathname();
+
+            $request->thumb  = str_replace('./','/',str_replace('\\','/',$request->thumb));
+
+        }
+
         $categoryService->edit($request);
         return redirect(route('admin.category.index'));
     }

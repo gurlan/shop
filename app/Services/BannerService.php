@@ -9,15 +9,18 @@
 
 namespace App\Services;
 use App\Models\Banner;
+use Illuminate\Support\Facades\Redis;
+use Predis\Client;
 
 
 class BannerService
 {
     protected  $banner;
 
-    public function __construct(Banner $banner)
+    public function __construct(Banner $banner,Client $client)
     {
         $this->banner = $banner;
+        $this->redis = $client;
     }
 
 
@@ -26,7 +29,13 @@ class BannerService
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getList($where = array()){
-       return $this->banner->getList($where);
+        if($this->redis->exists('banner')){
+            $banner = $this->redis->get('banner');
+            return json_decode($banner,true);
+        }
+        $banner =  $this->banner->getList($where);
+        $this->redis->set('bannerList',json_encode($banner));
+        return $banner;
     }
 
     /**

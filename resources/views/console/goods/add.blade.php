@@ -1,4 +1,4 @@
-@extends('console.base');
+@extends('console.base')
 @section('content')
     <div id="page-wrapper">
         <div class="graphs">
@@ -6,10 +6,8 @@
                 <h3>Forms</h3>
                 <div class="tab-content">
                     <div class="tab-pane active" id="horizontal-form">
-                        <form class="form-horizontal" method="post" action="{{route('admin.goods.doAdd')}}"
-                              enctype="multipart/form-data">
+                        <form class="form-horizontal" method="post" action="{{route('admin.goods.doAdd')}}" enctype="multipart/form-data">
                             @csrf
-
                             <div class="form-group">
                                 <label for="focusedinput" class="col-sm-2 control-label">商品名称</label>
                                 <div class="col-sm-8">
@@ -20,13 +18,17 @@
                                     <p class="help-block">  {{$errors->first('goods_name')}}</p>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="selector1" class="col-sm-2 control-label">分类</label>
                                 <div class="col-sm-8">
                                     <select name="cat_id" id="selector1" class="form-control1">
                                         @foreach($category as $v)
-                                            <option value="{{$v['id']}}">{{$v['name']}}</option>
+                                            <option value="{{$v['id']}}" disabled>{{$v['name']}}</option>
+                                            @if($v['child'])
+                                                @foreach ($v['child'] as $v )
+                                                    <option value="{{$v['id']}}">{{$v['name']}}</option>
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -35,7 +37,7 @@
                             <div class="form-group">
                                 <label for="selector1" class="col-sm-2 control-label">难度</label>
                                 <div class="col-sm-8">
-                                    <select name="goods_id" id="selector1" class="form-control1">
+                                    <select name="difficulty" id="selector1" class="form-control1">
                                         @foreach($level as $k=>$v)
                                             <option value="{{$k}}">{{$v}}</option>
                                         @endforeach
@@ -46,10 +48,8 @@
                             <div class="form-group">
                                 <label for="focusedinput" class="col-sm-2 control-label">排序</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control1" id="focusedinput" name="sort"
-                                           value="{{old('sort')?old('sort'):0}}">
+                                    <input type="text" class="form-control1" id="focusedinput" name="sort" value="{{old('sort')?old('sort'):0}}">
                                 </div>
-
                             </div>
 
                             <div class="form-group">
@@ -74,26 +74,36 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">描述</label>
-                                <script  type="text/javascript" id="description" name="description">{!!old(description)!!}</script>
+                                <label for="focusedinput" class="col-sm-2 control-label">来源</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control1" id="focusedinput" name="copyfrom" value="{{old('copyfrom')}}">
+                                </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述</label>
+                                <div class="col-sm-8">
+                                <script  type="text/javascript" id="description" name="description">{!!old(description)!!}</script>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">简介</label>
+                                <div class="col-sm-8">
                                 <script  type="text/javascript" id="introduce" name="introduce">{!!old(introduce)!!}</script>
+                                </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">须知</label>
+                                <div class="col-sm-8">
                                 <script  type="text/javascript" id="notice" name="notice">{!!old(notice)!!}</script>
+                                </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">详情</label>
+                                <div class="col-sm-8">
                                 <script  type="text/javascript" id="content" name="content">{!!old(content)!!}</script>
+                                </div>
                             </div>
-
-
                             <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-8 col-sm-offset-2">

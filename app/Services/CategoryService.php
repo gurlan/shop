@@ -38,9 +38,15 @@ class CategoryService
        return $this->category->categoryInfo($id);
    }
 
+    /**
+     * 添加
+     * @param $request
+     * @return mixed
+     */
     public function add($request){
         return $this->category->add($request);
     }
+
     /**修改分类
      * @param $request
      * @return mixed

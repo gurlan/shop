@@ -52,8 +52,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
     Route::get('/user','UserController@index')->name('user.index');
     Route::get('/user/edit','UserController@edit')->name('user.edit');
     Route::get('/user/del','UserController@del')->name('user.del');
-
-
     Route::get('/user/coupon','UserController@coupon')->name('user.coupon');
 
     /*优惠券部分*/
@@ -66,4 +64,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
     Route::get('/banner/add','BannerController@add')->name('banner.add');
     Route::post('/banner/doAdd','BannerController@doAdd')->name('banner.doAdd');
 
+    /*文章部分*/
+    Route::get('/news','NewsController@index')->name('news.index');
+    Route::get('/news/del','NewsController@del')->name('news.del');
+    Route::get('/news/add','NewsController@add')->name('news.add');
+    Route::post('/news/doAdd','NewsController@doAdd')->name('news.doAdd');
+
+});
+
+Route::namespace('Wap')->prefix('wap')->name('wap.')->group(function(){
+    Route::get('/index','IndexController@index')->name('index.index');
 });

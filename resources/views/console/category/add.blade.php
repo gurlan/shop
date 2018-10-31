@@ -6,7 +6,7 @@
             <h3>Forms</h3>
             <div class="tab-content">
                 <div class="tab-pane active" id="horizontal-form">
-                    <form class="form-horizontal"  method="post" action="{{route('admin.category.doAdd')}}">
+                    <form class="form-horizontal"  method="post" action="{{route('admin.category.doAdd')}}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
@@ -18,6 +18,29 @@
                                 <p class="help-block">  {{$errors->first('name')}}</p>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputFile" class="col-sm-2 control-label">封面</label>
+                            <div class="col-sm-8">
+                                <input type="file" id="exampleInputFile" name="thumb">
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="help-block">{{$errors->first('thumb')}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="focusedinput" class="col-sm-2 control-label">背景色</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control1" id="focusedinput" placeholder="背景色" name="color" value="{{$category->color}}">
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="help-block"> {{$errors->first('color')}}</p>
+                            </div>
+                        </div>
+
+
 
                         <div class="form-group">
                             <label for="selector1" class="col-sm-2 control-label">上级分类</label>

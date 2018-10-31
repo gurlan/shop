@@ -9,6 +9,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property int $last_login
+ * @property string $remember_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereLastLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereUsername($value)
  */
 class Admin extends Authenticatable
 {

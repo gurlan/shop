@@ -33,7 +33,6 @@ class BannerController extends Controller
         return redirect(route('admin.banner.index'));
     }
 
-
     /**
      * 添加
      * @return $this
@@ -60,13 +59,11 @@ class BannerController extends Controller
 
              $file =  $img ->move('./upload/banner',$saveName);
             $request->image  = $file->getPathname();
-
-
+            $request->image  = str_replace('./','/',str_replace('\\','/',$request->image));
         }else{
             $position = Banner::$position;
             return view('console.banner.add')->with('error','图片不能为空')->with('position',$position);
         }
-
 
         $bannerService->add($request);
         return redirect(route('admin.banner.index'));

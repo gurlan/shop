@@ -11,6 +11,28 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $user_name
+ * @property string $password
+ * @property string $mobile
+ * @property string $email
+ * @property int $add_time
+ * @property int $login_num
+ * @property int $last_login
+ * @property int $pid
+ * @property int $vip
+ * @property string $remember_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAddTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLastLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLoginNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereMobile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUserName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereVip($value)
  */
 class User extends Authenticatable
 {

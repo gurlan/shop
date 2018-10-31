@@ -1,0 +1,238 @@
+/**
+ * wap模块通用工具类
+ * @author zhangshaoliu
+ * @date 2015-07-16
+ */
+var commonUtil = (function(win, $) {
+	var doc = win.document;
+
+	/**
+	 * 若用户已安装app，则使用schema URL拉起APP，否则，跳转到下载页面，引导用户安装
+	 * @param  {String} schemaStr 自定义协议字符串
+	 */
+	function launchAPP(targetUrl, schemaStr) {
+		var timer;
+		var schemaUrl = 'mukewang://www.imooc.com' + (schemaStr || '/m/web/');
+  
+        if( isPhone()){
+            location.href = schemaUrl;
+            return;
+        }
+            
+        var schemaShell = document.createElement('iframe');
+        schemaShell.style.display = 'none';
+        
+        var clearSchemaShell = function() {
+             if (!schemaShell) {
+                 return;
+             }
+            clearTimeout(timer);
+            ifr.onload = null;
+			schemaShell.parentNode.removeChild(schemaShell);
+            schemaShell = null;
+         };
+
+        schemaShell.onload = clearSchemaShell;
+        schemaShell.src = schemaUrl;
+        document.body.appendChild(schemaShell);
+
+		var now = Date.now();
+		timer = setTimeout(function() {
+			// 如果已拉起app，则不跳转页面
+			 var newTime = Date.now();
+			if (newTime - now > 500) {
+				return;
+			}
+			// 否则跳到下载页
+			location.href = targetUrl;
+		}, 480);
+	}
+
+
+	// 隐藏地址栏
+	function hideUrlBarOnLoad() {
+		// 如果有hash，就不做处理
+		if(location.hash){
+			return;
+		}
+		$(win).on('load', function() {
+			setTimeout(function() {
+				win.scrollTo(0, 1);
+			}, 0);
+		});
+	};
+
+	// 是否是微信平台
+	function isWeChat() {
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.match(/MicroMessenger/i) == "micromessenger") {
+			return true;
+		}
+		return false;
+	}
+
+    function isPhone() {
+        var sUserAgent=navigator.userAgent;
+        var mobileAgents=['iPhone'];
+        var go = false;
+        for( var i=0;i<mobileAgents.length;i++){
+            if(sUserAgent.indexOf(mobileAgents[i]) > -1){
+            go = true;
+            break;
+          }
+        }
+        return go;
+    }
+        
+	// Enable CSS active pseudo styles in Mobile browser
+	function enableActive() {
+		$(doc).on('touchstart', function() {});
+	};
+
+	// 阻止页面的默认滚动行为
+	function preventPageScrolling() {
+
+		// target hasScroll?
+		function __hasScroll(target) {
+			target.scrollTo(0, 1);
+			return target.scrollTop ? true : false;
+		}
+
+		$(doc).on('touchmove', function(evt) {
+			// if evte.target is Input Range or evt.target has scroll, stop here
+			if (evt.target.type === 'range' || __hasScroll(evt.target)) {
+				return;
+			}
+			evt.preventDefault();
+		});
+	};
+
+	// 返回通用工具接口
+	return {
+		launchAPP: launchAPP,
+		hideUrlBarOnLoad: hideUrlBarOnLoad,
+		isWeChat: isWeChat,
+		enableActive: enableActive,
+		preventPageScrolling: preventPageScrolling
+	}
+
+})(window, window.Zepto || window.jQuery);
+
+
+/**
+ * 通用组件逻辑交互
+ * @author zhangshaoliu
+ * @date 2015-07-16
+ */
+(function(win, $) {
+	var doc = win.document;
+
+	// 通过判断手势方向（上或下），对页面底部导航栏做显隐切换
+	/*
+	function switchMenuBar($menuBar){
+		var startX,
+			starY,
+			endX,
+			endY;
+
+		$(doc)
+			.on('touchstart', function(evt) {
+				var touch = evt.touches[0];
+				startX = touch.pageX;
+				starY = touch.pageY;
+			})
+			.on('touchmove', function(evt){
+				var touch = evt.touches[0];
+				endX = (touch.pageX - startX);
+				endY = (touch.pageY - starY);
+
+				if (Math.abs(endX) < Math.abs(endY) && Math.abs(endY) > 10) {
+					if (endY > 0) {
+						$menuBar.removeClass('nav-hide');
+					} else {
+						$menuBar.addClass('nav-hide');
+					}
+				}
+          	});
+	}*/
+
+	// 打开慕课网应用banner条
+	if($('.toapp-banner').length){
+		
+		$('#js-toapp').click(function(e) {
+			// 如果不在微信平台
+			if (!commonUtil.isWeChat()) {
+				var schemaStr = $(this).data('search');
+				schemaStr && commonUtil.launchAPP('/wap/app', schemaStr);
+				// 如果在微信平台
+			} else {
+				$('#js-intro').show()
+			}
+		});
+		
+
+		// 关闭按钮
+		$('#js-toapp-close').click(function() {
+			$(this).parent().remove();
+		});
+		
+		$('#js-intro').click(function (){
+			$(this).hide();
+		})
+	}
+
+	$('.js-show-menu').on('click', function(e){
+		$(".js-header-box").hide()
+		$(".js-header-menu").show()
+	})
+
+	$('.js-hide-menu').on('click', function(e){
+		$(".js-header-box").show()
+		$(".js-header-menu").hide()
+	})
+
+	// $('.js-show-menu').on('click', function(e){
+ //        $('html').addClass('holding');
+	// 	$('body').addClass('slide-left');
+ //        if( !$('.slide-left-opa')[0] ){
+ //            $('body').append('<div class="slide-left-opa" style="position: absolute; top: 0; right: 130px; left: 0;bottom: 0; background: rgba(0 ,0,0,0.3); z-index: 2000;"></div>');
+ //        }
+        
+ //        document.getElementsByClassName('slide-left-opa')[0].addEventListener("touchstart", function (){
+ //        $('html').removeClass('holding');
+ //        $('body').removeClass('slide-left');
+ //        $('.slide-left-opa').remove();
+ //            return false;
+ //        }, false);
+    
+ //        e.stopPropagation()
+ //        return false;
+	// })
+    
+ //    $('body').on('click', '.slide-left-opa', function (){
+ //        $('html').removeClass('holding');
+ //        $('body').removeClass('slide-left');
+ //        $('.slide-left-opa').remove();
+ //    })
+
+	/*
+	$(function() {
+		// polyfill to remove click delays on browsers with touch UIs
+		typeof FastClick === 'function' && FastClick.attach(document.body);
+
+		// 导航栏
+		var $menuBar = $(".nav-wrap");
+
+		// 隐藏地址栏
+		commonUtil.hideUrlBarOnLoad();
+
+		// 激活按钮hover效果
+		commonUtil.enableActive();
+
+		// 触摸屏幕底部导航栏显隐切换
+		if($menuBar.length){
+			switchMenuBar($menuBar);
+		}
+	});*/
+
+})(window, window.Zepto || window.jQuery);

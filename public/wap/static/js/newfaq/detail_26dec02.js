@@ -1,0 +1,1 @@
+$(function(){$(".js-useful").on("click",function(){var a=$(this),e=a.data("id"),t=a.data("type"),o="/api/newfaq/faqUseful";$.ajax({url:o,type:"get",data:{faq_id:e,is_useful:t},dataType:"json",success:function(a){console.log(a),(a.errorCode=1e3)?$(".useful-box").html("<p>非常感谢您的支持，我们会努力为您<br>提供更好的服务和帮助</p>"):alert("请稍后重试")},error:function(){alert("请稍后重试")}})})});

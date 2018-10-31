@@ -25,9 +25,16 @@
                                 <label for="selector1" class="col-sm-2 control-label">分类</label>
                                 <div class="col-sm-8">
                                     <select name="cat_id" id="selector1" class="form-control1">
-                                        @foreach($category as $v)
-                                            <option value="{{$v['id']}}"  @if($v['id'] == $goods->cat_id) selected @endif >{{$v['name']}}</option>
-                                        @endforeach
+                                            @foreach($category as $v)
+                                                <option value="{{$v['id']}}" disabled>{{$v['name']}}</option>
+                                                @if($v['child'])
+                                                    @foreach ($v['child'] as $v )
+
+                                                        <option value="{{$v['id']}}"  @if($v['id'] == $goods->cat_id) selected @endif >{{$v['name']}}</option>
+
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -70,6 +77,13 @@
                                 </div>
                                 <div class="col-sm-2">
                                     <p class="help-block">{{$errors->first('thumb')}}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="focusedinput" class="col-sm-2 control-label">来源</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control1" id="focusedinput" name="copyfrom" value="{{$goods->copyfrom}}">
                                 </div>
                             </div>
 

@@ -1,0 +1,177 @@
+/**
+ * 自定义通用组件
+ * @author zhangshaoliu
+ * @date 2015-07-20
+ */
+
+var component = (function(win, $) {
+
+	var doc = win.document,
+		$body = $(doc.body);
+
+	// 遮罩层
+	var maskLayer = (function(){
+		// private function
+		// 获取遮罩层的html模板
+		function _getMask() {
+			if (!$('.js-mask').length){
+				$body.append('<div class="mask-view js-mask"></div>');
+			}
+			return $('.js-mask');
+		}
+
+		function maskShow() {
+			var $mask = _getMask();
+			$mask.show();
+
+
+			$mask.off('https://m.imooc.com/wap/js/common/click.hide').on('https://m.imooc.com/wap/js/common/click.hide', function(){
+				//maskHide();
+			})
+			.off('touchmove').on('touchmove', function(evt){
+				evt.preventDefault();
+			});
+		}
+
+		function maskHide() {
+			var $mask = _getMask();
+			$mask.hide();
+		}
+
+		return {
+			add: maskShow,
+			remove: maskHide
+		};
+	})();
+
+
+	// popup
+	var popup = (function(){
+		// private function
+		// “阻止”弹出框的html模板
+		function _preventTemplate(){
+			var html = [
+				'<div class="popup-prevent js-prevent">',
+					'<div class="prevent-wrap">',
+						'<div class="prevent-content">',
+							'<p>请下载APP或登录观看完整课程</p>',
+							'<a href="../../../account/login.htm"/*tpa=https://m.imooc.com/m/web/account/login.html*/>登录/注册</a>',
+							'<a href="http://www.imooc.com/mobile/appdown">下载APP</a>',
+						'</div>',
+						'<span class="prevent-close">关闭</span>',
+					'</div>',
+				'</div>'
+			];
+			return html.join('');
+		}
+
+		// 获取“阻止”弹出框
+		function _getPreventLayer(){
+			if (!$('.js-prevent').length){
+				$body.append(_preventTemplate());
+			}
+			return $('.js-prevent');
+		}
+
+		function showPrevent(callback){
+			var $preventLayer = _getPreventLayer();
+			maskLayer.add();
+			$preventLayer.show();
+			callback && callback.call();
+
+			// 关闭按钮点击事件
+			var $closeBtn = $('.prevent-close');
+
+			$preventLayer.off('touchmove').on('touchmove', function(evt){
+				evt.preventDefault();
+			});
+			$closeBtn.off('https://m.imooc.com/wap/js/common/click.hide').on('https://m.imooc.com/wap/js/common/click.hide', function(){
+				hidePrevent();
+			})
+		}
+
+		function hidePrevent(callback){
+			var $preventLayer = _getPreventLayer();
+			maskLayer.remove();
+			$preventLayer.hide();
+			callback && callback.call();
+		}
+
+		/***********************************************************************************/
+
+		// “提示信息”弹出框的html模板
+		function _infoTemplate(content) {
+			var html = [
+				'<div class="popup-info js-info">',
+					'<div class="info-wrap">',
+						'<div class="info-inner">',
+							'<span class="info-content">', content, '</span>',
+						'</div>',
+					'</div>',
+				'</div>'
+			];
+			return html.join('');
+		}
+
+		// 获取信息提示层
+		function _getInfoLayer(){
+			return $('.js-info');
+		}
+
+		// 移除信息提示层
+		function removeInfo(){
+			var $infoLayer = _getInfoLayer();
+			$infoLayer.remove();
+		}
+
+		// 提示信息(提留3秒)
+		function info(content) {
+			removeInfo();
+			$body.append(_infoTemplate(content));
+
+			var $infoLayer = _getInfoLayer();
+			$infoLayer.off('touchmove').on('touchmove', function(evt){
+				evt.preventDefault();
+			});
+
+			setTimeout(function(){
+				removeInfo();
+			}, 3e3);
+		}
+
+		// 操作成功提示
+		function success(content) {
+			info(content || '操作成功');
+		}
+
+		// 操作失败提示
+		function failure(content) {
+			info(content || '操作失败');
+		}
+
+		// 加载中提示
+		function loading(content) {
+			$body.append(_infoTemplate(content || '请稍候...'));
+
+			var $infoLayer = _getInfoLayer();
+			$infoLayer.off('touchmove').on('touchmove', function(evt){
+				evt.preventDefault();
+			});
+		}
+
+		return {
+			addPrevent: showPrevent,
+			removePrevent: hidePrevent,
+			info: info,
+			success: success,
+			failure: failure,
+			loading: loading,
+			removeInfo: removeInfo
+		};
+	})();
+
+	return {
+		maskLayer: maskLayer,
+		popup: popup
+	};
+})(window, window.Zepto || window.jQuery);

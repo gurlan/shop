@@ -1,0 +1,284 @@
+/**
+ * 视频播放页面业务逻辑
+ * @author zhangshaoliu
+ * @update 2015-07-31
+ */
+(function(global, $) {
+
+	var win = window,
+		cid = course.id,
+		mid = pageInfo.mid,
+		tit = course.title,
+		pic = course.imageUrl;
+
+	if (pageInfo.islogin) {
+		var uid = userInfoUid;
+	}
+
+	var store = window.store;
+	var jQueryObj = $({});
+
+	var EventEmitter = function() {
+		this.fns = {}
+		this.on = function(name, ctx, fn) {
+			if (typeof ctx == 'function') {
+				fn = ctx;
+				ctx = this;
+			}
+			if (!this.fns[name]) {
+				this.fns[name] = [];
+			}
+			fn.ctx = ctx;
+			this.fns[name].push(fn);
+		}
+		this.emit = function(name, data) {
+			var fns = this.fns[name];
+			if (typeof fns == 'undefined') {
+				console.warn('Warning: Event no listener');
+				return false;
+			}
+			for (var i = 0; i < fns.length; i++) {
+				fns[i].call(fns[i].ctx, data);
+			}
+		}
+	}
+	var EVENT = new EventEmitter();
+
+	// 学习数据统计，60秒统计一次
+	var learnTimeRecord = function() {
+
+		var startTime = new Date().getTime(),
+			timer = null;
+
+		var send = function() {
+			var overTime,
+				params = {},
+				stayTime;
+
+			overTime = new Date().getTime();
+			stayTime = parseInt(overTime - startTime) / 1000;
+
+			params['mid'] = mid;
+			params['cid'] = cid;
+			params['uid'] = uid;
+			params['learn_time'] = stayTime;
+			params['video_point'] = Video.getPoint();
+
+			var ajaxOpt = {
+				url: '//www.imooc.com/course/ajaxmediauser/',
+				data: params,
+				type: "POST",
+				dataType: 'json',
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success: function(res) {
+					console.log(res);
+					if (res.result == '0') {
+
+					}
+				}
+			}
+			$.ajaxSettings.beforeSend = function(xhr) {
+		        xhr.withCredentials = true;  
+		    };
+			$.ajax(ajaxOpt);
+		}
+
+		var start = function() {
+			timer = window.setInterval(function() {
+				send();
+			}, 60000);
+		}
+
+		var ctrl = {
+
+			reset: function() {
+				startTime = new Date().getTime();
+				if (timer) clearInterval(timer);
+				timer = null;
+			},
+
+			start: function() {
+				this.reset();
+				start();
+			},
+
+			send2: function() {
+				send();
+			},
+		}
+
+		window.onbeforeunload = function() {
+			var time = Video.getPoint();
+
+			var vt = store.get("_vt") || {},
+				it = vt[mid];
+
+			if (it) {
+				it['t'] = new Date().getTime();
+				it['st'] = time;
+			} else {
+				vt[mid] = {
+					t: new Date().getTime(),
+					st: time
+				};
+			}
+
+			store.set("_vt", vt);
+
+			send(false);
+			return;
+
+		}
+
+		return ctrl;
+	}();
+
+	//新video
+	var Video = {
+
+		// 暂停
+		pause: function() {
+			window.thePlayer.pause();
+			learnTimeRecord.reset();
+		},
+		// 播放状态
+		getState: function() {
+			return window.thePlayer.getState();
+		},
+		// 继续播放
+		playVideo: function() {
+			window.thePlayer.play();
+			learnTimeRecord.start();
+		},
+		// 重新播放
+		review: function() {
+			window.thePlayer.play();
+			learnTimeRecord.start();
+		},
+
+		// 初始化播放
+		init: function(parame) {
+			var self = this;
+			var ctime = 0,
+				vt = store.get('_vt');
+
+			if (vt && vt[parame.mid]) {
+				ctime = vt[parame.mid].st || 0;
+			}
+
+			if (window.thePlayer && window.thePlayer.destroy) {
+				window.thePlayer.destroy()
+			}
+			var isFirstMedia = '';
+			if(course.allowId){
+				isFirstMedia = '&from_wap=1';
+			}
+			var url = '/course/playlist/' + parame.mid + '?t=m3u8' + isFirstMedia;
+			// var url = "/api/video/m3u8h5.html?cid=" + parame.cid + '&mid=' + parame.mid + '&uid=' + parame.uid;
+			//var url = "http://coding.imooc.com/wap/m3u8h5?cid="+data.cid+'&mid='+data.mid+'&uid='+data.uid;
+			win.thePlayer = mocoplayer($("#video"), {
+				url: url,
+				title: parame.mediaName,
+				currentTime: ctime,
+				images: parame.pic,
+				events: {
+					onReady: function() {
+						if(pageInfo.islogin){
+							learnTimeRecord.start(); // 学习数据上报开始 每60秒上传一次
+						}
+						$('.vjs-control-bar').show().css('bottom', '0');
+					},
+					//ios独有
+					_onpause: function() {
+						if(pageInfo.islogin){
+							learnTimeRecord.reset();
+						}
+					},
+					onComplete: function() {
+						if(pageInfo.islogin){
+							learnTimeRecord.send2();
+							learnTimeRecord.reset();
+						}
+						this.init(); //播放完成逻辑
+					},
+					onError: function(error) {
+						//console.log(error)
+					}
+				}
+			})
+		},
+		getPoint: function() {
+			var time = 0;
+			if (window.thePlayer && window.thePlayer.getCurrentTime) {
+				time = window.thePlayer.getCurrentTime()
+			} else {
+				time = window.VgetCurrentTime();
+			}
+			return Math.floor(time);
+		}
+	}
+
+
+	// 添加事件交互处理
+	function addEventMonitor() {
+		// 课程节标题点击逻辑处理
+		$('.course-sections').on('click', 'a', function(e) {
+			if (!pageInfo.islogin && course.allowId && $(this).data('id') != course.allowId) {
+				// 如果未登录，只能点第一节
+				// 否则弹出登录引导提示框
+				window.location = "../../account/login.htm"/*tpa=https://m.imooc.com/m/web/account/login.html*/
+					// component.popup.addPrevent();
+					// e.preventDefault();
+			}
+		});
+	}
+
+
+	$(function() {
+		// // 视频播放器初始化
+		// if (course.videoUrl && course.videoUrl != "false") {
+		// 	videoPlayer = jwplayer('video').setup({
+		// 		file: course.videoUrl.replace(/\.flv\s*$/, ".mp4"),
+		// 		autostart: "true",
+		// 		width: "100%",
+		// 		startparam: "starttime",
+		// 		aspectratio: "16:9",
+		// 		image: course.imageUrl,
+		// 		primary: "html5",
+		// 		autochange: true,
+		// 		events: {
+		// 			onComplete: function() {
+		// 				sendLearnTime();
+		// 			}
+		// 		}
+		// 	});
+		// }
+
+		var data = {
+			cid: cid,
+			pic: pic,
+			mediaName: tit
+		};
+		if (mid) {
+			data['mid'] = mid;
+		}
+		if(pageInfo.islogin) {
+			data.uid = uid;
+		}
+
+		Video.init(data);
+		addEventMonitor();
+
+	});
+
+
+	$(".js-open-app").on("click", function() {
+		commonUtil.launchAPP(window.location.pathname);
+	})
+
+
+
+})(window, window.Zepto);

@@ -4,6 +4,37 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+/**
+ * App\Models\Goods
+ *
+ * @property int $id
+ * @property string $goods_name 商品名称
+ * @property float $goods_price 商品价格
+ * @property string|null $description 描述
+ * @property string|null $introduce 简介
+ * @property string|null $thumb 封面
+ * @property int|null $cat_id 分类ID
+ * @property int $views 浏览量
+ * @property int|null $difficulty 难度
+ * @property string|null $notice 须知
+ * @property int|null $sort 排序
+ * @property string|null $content 内容
+ * @property int $add_time 上架时间
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereAddTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereCatId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereDifficulty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereGoodsName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereGoodsPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereIntroduce($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereNotice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereThumb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Goods whereViews($value)
+ * @mixin \Eloquent
+ */
 class Goods extends Model
 {
 
@@ -17,7 +48,7 @@ class Goods extends Model
      * @return mixed
      */
     public function getList($where = array()){
-       return $this->leftJoin('category as cat','goods.cat_id','=','cat.id')->where($where)->select('goods.*','cat.name as cat_name')->paginate(10);
+       return $this->leftJoin('category as cat','goods.cat_id','=','cat.id')->where($where)->select('goods.*','cat.name as cat_name','cat.thumb as cat_img','cat.color')->paginate(10);
     }
 
 
@@ -35,8 +66,9 @@ class Goods extends Model
         $data['notice'] =$request->notice;
         $data['thumb'] = $request->thumb;
         $data['cat_id'] = $request->cat_id;
-        $data['difficulty'] = $request->level;
-        $data['sort'] = $request->sort;
+        $data['difficulty'] = $request->difficulty;
+        $data['copyfrom'] = $request->copyfrom;
+        $data['sort'] = intval($request->sort);
         $data['add_time'] = time();
         return $this->insert($data);
     }
@@ -56,9 +88,9 @@ class Goods extends Model
         $data['notice'] =$request->notice;
         $data['thumb'] = $request->thumb;
         $data['cat_id'] = $request->cat_id;
-        $data['difficulty'] = $request->level;
-        $data['sort'] = $request->sort;
-
+        $data['difficulty'] = $request->difficulty;
+        $data['copyfrom'] = $request->copyfrom;
+        $data['sort'] = intval($request->sort);
         return $this->where('id',$request->id)->update($data);
     }
 
@@ -75,6 +107,7 @@ class Goods extends Model
     }
 
     /**
+     * 商品信息
      * @param $goods_id
      * @return mixed
      */
