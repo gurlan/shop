@@ -8,6 +8,7 @@
  */
 
 namespace App\Services;
+
 use App\Models\Category;
 use App\Models\Goods;
 use App\Models\GoodsDirectory;
@@ -18,11 +19,12 @@ use QL\QueryList;
 
 class GoodsService
 {
-    protected  $category;
-    protected  $goods;
-    protected  $queryList;
-    protected  $directory;
-    public function __construct(Category $category,Goods $goods,QueryList $queryList,GoodsDirectory $goodsDirectory)
+    protected $category;
+    protected $goods;
+    protected $queryList;
+    protected $directory;
+
+    public function __construct(Category $category, Goods $goods, QueryList $queryList, GoodsDirectory $goodsDirectory)
     {
         $this->category = $category;
         $this->goods = $goods;
@@ -35,9 +37,10 @@ class GoodsService
      * @param $pid
      * @return mixed
      */
-    public function getList($where=array()){
+    public function getList($where = array())
+    {
 
-       return $this->goods->getList($where);
+        return $this->goods->getList($where);
     }
 
 
@@ -46,7 +49,8 @@ class GoodsService
      * @param $request
      * @return mixed
      */
-    public function add($request){
+    public function add($request)
+    {
 
         return $this->goods->add($request);
     }
@@ -55,7 +59,8 @@ class GoodsService
      * 删除
      * @param $goods_id
      */
-    public function del($goods_id){
+    public function del($goods_id)
+    {
         return $this->goods->del($goods_id);
     }
 
@@ -64,7 +69,8 @@ class GoodsService
      * @param $goods_id
      * @return mixed
      */
-    public function goodsInfo($goods_id){
+    public function goodsInfo($goods_id)
+    {
         return $this->goods->goodsInfo($goods_id);
     }
 
@@ -74,79 +80,102 @@ class GoodsService
      * @param $request
      * @return mixed
      */
-    public function edit($request){
+    public function edit($request)
+    {
         return $this->goods->edit($request);
     }
 
     /**
-     * 采集
+     * 采集视频的目录和详情图
      * @param $goods_id
      */
-    public function collect($goods_id){
+    public function collect($goods_id)
+    {
         $copyfrom = $this->goodsInfo($goods_id)->copyfrom;
-        if (!$copyfrom){
+        if (!$copyfrom) {
             Log::debug('copyfrom字段为空');
             $res['code'] = 200;
             $res['msg'] = 'copyfrom字段为空';
             return $res;
         }
-         $cid = $this->findNum($copyfrom);
-         $url = 'https://coding.m.imooc.com/api/classindex/stepList.html?cid='.$cid;//目录接口
-         $data = json_decode(file_get_contents($url),true);
-         $directory = $data['data']; //目录
+        $cid = $this->findNum($copyfrom);
+        $url = 'https://coding.m.imooc.com/api/classindex/stepList.html?cid=' . $cid;//目录接口
+        $data = json_decode(file_get_contents($url), true);
+        $directory = $data['data']; //目录
 
 
+        $ql = $this->queryList->bind('downloadImage', function ($path) {
 
-        $ql =$this->queryList->bind('downloadImage',function ($path){
-            $data = $this->getData()->map(function ($item) use($path){
+            $data = $this->getData()->map(function ($item) use ($path) {
                 //获取图片
                 $img = file_get_contents($item['image']);
 
-                $localPath = $path.'/'.md5($img).'.jpg';
+                $localPath = $path . '/' . md5($img) . '.jpg';
                 //保存图片到本地路径
-                file_put_contents($localPath,$img) ;
+                file_put_contents($localPath, $img);
                 //data数组中新增一个自定义的本地路径字段
                 $item['local_path'] = $localPath;
+
                 return $item;
             });
             //更新data属性
             $this->setData($data);
+
             return $this;
         });
-        $path = 'upload/content'.'/'.date('Y-m-d',time());
+        $path = 'upload/content' . '/' . date('Y-m-d', time());
         $this->mkdirs($path);
         $data = $ql->get($copyfrom)->rules([
-            'image' => ['.pic-wrap img','src']
+            'image' => ['.pic-wrap img', 'src']
         ])->query()->downloadImage($path)->getData();
 
-         if ($directory && $data){
-            $this->directory->add($goods_id,$directory);
-             $this->goods->content($goods_id,$data);
+        if ($directory && $data) {
+            $this->directory->add($goods_id, $directory);//录入目录
+            $this->goods->content($goods_id, $data);//录入详情
             $res['code'] = 200;
             $res['msg'] = 'success';
-             return $res;
-         }
+            return $res;
+        }
         $res['code'] = 200;
         $res['msg'] = 'false';
         return $res;
     }
 
-   private function findNum($str=''){
-        $str=trim($str);
-        if(empty($str)){return '';}
-        $reg='/(\d{3}(\.\d+)?)/is';//匹配数字的正则表达式
-        preg_match_all($reg,$str,$result);
-        if(is_array($result)&&!empty($result)&&!empty($result[1])&&!empty($result[1][0])){
+    /**
+     * 提取网址中的数字
+     * @param string $str
+     * @return string
+     */
+    private function findNum($str = '')
+    {
+        $str = trim($str);
+        if (empty($str)) {
+            return '';
+        }
+        $reg = '/(\d{3}(\.\d+)?)/is';//匹配数字的正则表达式
+        preg_match_all($reg, $str, $result);
+        if (is_array($result) && !empty($result) && !empty($result[1]) && !empty($result[1][0])) {
             return $result[1][0];
         }
         return '';
     }
 
-   protected function mkdirs($dir, $mode = 0777)
+    /**
+     * 检查目录是否存在，否则创建目录
+     * @param $dir
+     * @param int $mode
+     * @return bool
+     */
+    protected function mkdirs($dir, $mode = 0777)
     {
         if (is_dir($dir) || @mkdir($dir, $mode)) return TRUE;
         if (!mkdirs(dirname($dir), $mode)) return FALSE;
         return @mkdir($dir, $mode);
     }
 
+    public function getDirectory($goods_id)
+    {
+
+        return $this->directory->getDirectory($goods_id);
+    }
 }

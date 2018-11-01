@@ -74,5 +74,24 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('admin')-
 });
 
 Route::namespace('Wap')->prefix('wap')->name('wap.')->group(function(){
+    /*首页*/
     Route::get('/index','IndexController@index')->name('index.index');
+    /*商品*/
+    Route::get('/goods/index','GoodsController@index')->name('goods.index');
+    Route::get('/goods/chapter','GoodsController@chapter')->name('goods.chapter');
+    Route::get('/goods/buy','GoodsController@buy')->name('goods.buy');
+
+    /*账号*/
+    Route::get('/account/login','AccountController@login')->name('account.login');
+
+});
+
+
+Route::namespace('Wap')->prefix('wap')->name('wap.')->middleware('account')->group(function(){
+
+    /*商品*/
+    Route::get('/goods/buy','GoodsController@buy')->name('goods.buy');
+
+
+
 });

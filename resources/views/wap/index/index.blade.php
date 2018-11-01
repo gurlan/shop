@@ -80,7 +80,7 @@
                                      style="box-shadow: 0 4px 16px 0 {{$v->color}};background: {{$v->color}} url({{asset($v->cat_img)}}) no-repeat right;"
 
                                 >
-                                    <a href="javascript:">
+                                    <a href="{{route('wap.goods.index',['id'=>$v->id])}}">
                                         <h2>{{$v->cat_name}}</h2>
                                         <p class="big-card-title">{{$v->goods_name}}</p>
                                         <div class="big-card-bottom">
@@ -98,7 +98,7 @@
                         @foreach($recommend as $v)
                             @if($loop->iteration>2)
                         <div class="small-card clearfix">
-                            <a href="javascript: ">
+                            <a href="{{route('wap.goods.index',['id'=>$v->id])}}">
                                 <img data-original="{{asset($v->thumb)}}" class="small-card-banner l lazy">
                                 <div class="l">
                                     <p class="small-card-title">{{$v->goods_name}}</p>
@@ -141,7 +141,7 @@
                         @foreach($new as $v)
                             @if($loop->iteration<=2)
                         <div class="big-card l cd" style="box-shadow: 0 4px 16px 0 {{$v->color}};background: {{$v->color}} url({{$v->cat_image}}) no-repeat right;">
-                            <a href="javascript:">
+                            <a href="{{route('wap.goods.index',['id'=>$v->id])}}">
                                 <h2>{{$v->cat_name}}</h2>
                                 <p class="big-card-title">{{$v->goods_name}}</p>
                                 <div class="big-card-bottom">
@@ -161,7 +161,7 @@
                                     @foreach($new as $v)
                                         @if($loop->iteration>2)
                                     <div class="small-card clearfix">
-                                        <a href="javascript: ">
+                                        <a href="{{route('wap.goods.index',['id'=>$v->id])}}">
                                             <img data-original="{{asset($v->thumb)}}"
                                                  class="small-card-banner l lazy">
                                             <div class="l">
@@ -188,7 +188,7 @@
                                     @foreach($new as $v)
                                         @if($loop->iteration>5)
                                             <div class="small-card clearfix">
-                                                <a href="javascript: ">
+                                                <a href="{{route('wap.goods.index',['id'=>$v->id])}}">
                                                     <img data-original="{{asset($v->thumb)}}"
                                                          class="small-card-banner l lazy">
                                                     <div class="l">
