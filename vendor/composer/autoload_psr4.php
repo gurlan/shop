@@ -48,6 +48,8 @@ return array(
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Mnabialek\\LaravelVersion\\' => array($vendorDir . '/mnabialek/laravel-version/src'),
+    'Mnabialek\\LaravelSqlLogger\\' => array($vendorDir . '/mnabialek/laravel-sql-logger/src'),
     'Mews\\Captcha\\' => array($vendorDir . '/mews/captcha/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),

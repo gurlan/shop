@@ -65,7 +65,7 @@ return [
     |
     */
     'code' => [
-        'length'        => 5,
+        'length'        => 4,
         'validMinutes'  => 5,
         'repeatIfValid' => false,
         'maxAttempts'   => 0,
@@ -79,9 +79,9 @@ return [
     | 如需缓存配置，则需使用 `Toplan\Sms\SmsManger::closure($closure)` 方法进行配置
     |
     */
-    'content' => function ($code, $minutes, $input) {
+/*    'content' => function ($code, $minutes, $input) {
         return '【signature】您的验证码是' . $code . '，有效期为' . $minutes . '分钟，请尽快验证。';
-    },
+    },*/
 
     /*
     |--------------------------------------------------------------------------

@@ -14,11 +14,11 @@ class ComposerStaticInita54d469df1527f09c9f95a0455351eb0
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'fe62ba7e10580d903cc46d808b5961a4' => __DIR__ . '/..' . '/tightenco/collect/src/Collect/Support/helpers.php',
@@ -103,6 +103,8 @@ class ComposerStaticInita54d469df1527f09c9f95a0455351eb0
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Mnabialek\\LaravelVersion\\' => 25,
+            'Mnabialek\\LaravelSqlLogger\\' => 27,
             'Mews\\Captcha\\' => 13,
         ),
         'L' => 
@@ -339,6 +341,14 @@ class ComposerStaticInita54d469df1527f09c9f95a0455351eb0
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Mnabialek\\LaravelVersion\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnabialek/laravel-version/src',
+        ),
+        'Mnabialek\\LaravelSqlLogger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src',
         ),
         'Mews\\Captcha\\' => 
         array (
@@ -2977,6 +2987,16 @@ class ComposerStaticInita54d469df1527f09c9f95a0455351eb0
         'Mews\\Captcha\\CaptchaServiceProvider' => __DIR__ . '/..' . '/mews/captcha/src/CaptchaServiceProvider.php',
         'Mews\\Captcha\\Facades\\Captcha' => __DIR__ . '/..' . '/mews/captcha/src/Facades/Captcha.php',
         'Mews\\Captcha\\LumenCaptchaController' => __DIR__ . '/..' . '/mews/captcha/src/LumenCaptchaController.php',
+        'Mnabialek\\LaravelSqlLogger\\Config' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Config.php',
+        'Mnabialek\\LaravelSqlLogger\\FileName' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/FileName.php',
+        'Mnabialek\\LaravelSqlLogger\\Formatter' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Formatter.php',
+        'Mnabialek\\LaravelSqlLogger\\Objects\\Concerns\\ReplacesBindings' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Objects/Concerns/ReplacesBindings.php',
+        'Mnabialek\\LaravelSqlLogger\\Objects\\SqlQuery' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Objects/SqlQuery.php',
+        'Mnabialek\\LaravelSqlLogger\\Providers\\ServiceProvider' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Providers/ServiceProvider.php',
+        'Mnabialek\\LaravelSqlLogger\\Query' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Query.php',
+        'Mnabialek\\LaravelSqlLogger\\SqlLogger' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/SqlLogger.php',
+        'Mnabialek\\LaravelSqlLogger\\Writer' => __DIR__ . '/..' . '/mnabialek/laravel-sql-logger/src/Writer.php',
+        'Mnabialek\\LaravelVersion\\Version' => __DIR__ . '/..' . '/mnabialek/laravel-version/src/Version.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV5.php',
         'Mockery\\Adapter\\Phpunit\\Legacy\\TestListenerForV6' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/Legacy/TestListenerForV6.php',

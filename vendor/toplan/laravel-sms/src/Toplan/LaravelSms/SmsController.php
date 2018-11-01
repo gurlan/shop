@@ -28,16 +28,18 @@ class SmsController extends Controller
     {
         $res = Manager::validateSendable();
         if (!$res['success']) {
+            $res['status'] = 11002;
             return response()->json($res);
         }
 
         $res = Manager::validateFields();
         if (!$res['success']) {
+            $res['status'] = 11002;
             return response()->json($res);
         }
 
         $res = Manager::requestVerifySms();
-
+        $res['status'] = 10001;
         return response()->json($res);
     }
 

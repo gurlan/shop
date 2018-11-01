@@ -23,6 +23,7 @@ return [
      */
     'scheme' => [
         'Log',
+        'JuHe'=>100
     ],
 
     /*

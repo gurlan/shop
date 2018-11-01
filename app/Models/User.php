@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 /**
  * App\User
  *
@@ -58,12 +59,36 @@ class User extends Authenticatable
 
     public $table = 'user';
 
+    /**
+     * 用户列表
+     * @param array $where
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getList($where = array()){
         return $this->where($where)->orderBy('id','desc')->paginate(10);
     }
 
+    /**
+     * 删除用户
+     * @param $user_id
+     * @return bool|null
+     * @throws \Exception
+     */
     public function del($user_id){
         return $this->where('id',$user_id)->delete();
     }
+
+
+
+
+    /**
+     * 登录次数
+     * @param $user_id
+     */
+    public function login_num($user_id){
+        $this->where('id',$user_id)->increment('login_num');
+    }
+
+
 
 }

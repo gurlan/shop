@@ -83,6 +83,7 @@ Route::namespace('Wap')->prefix('wap')->name('wap.')->group(function(){
 
     /*账号*/
     Route::get('/account/login','AccountController@login')->name('account.login');
+    Route::get('/account/check','AccountController@check')->name('account.check');
 
 });
 

@@ -1,5 +1,16 @@
 $(function () {
-    var  s = {
+    var e = function () {
+    }, o = function () {
+        var e = document.location.href.split("backurl=");
+        return e[1] ? e[1] : document.referrer || "/"
+    }, t = function (e, o, t) {
+        var n = '<p class="warn-info" style="font-size: 16px;line-height: 28px;max-width: 600px;">' + e + "</p>";
+        return o && "undefined" != typeof t && (n += "imooc" == t ? '<p class="warn-tip" style="color: #999;margin-top: 30px;">可能导致账号冻结的原因  <a href="../../../../../newfaq-id=101.htm"/*tpa=https://m.imooc.com/newfaq?id=101*/ target="_blank" style="color: #08c !important;">了解详情</a></p>' : '<p class="warn-tip" style="color: #999;margin-top: 30px;">可能导致账号冻结的原因  <a href="../../../../../newfaq-id=101.htm"/*tpa=https://m.imooc.com/newfaq?id=101*/ target="_blank" style="color: #08c !important;">了解详情</a></p>'), n += '<div class="moco-modal-btns"><a class="moco-btn moco-btn-blue moco-modal-close js-modal-close" href="javascript:void(0)"><span>确定</span></a></div>'
+    }, n = function () {
+
+    }, a = function () {
+        $(".verify-img-wrap").append($('<img class="verify-img"/>')), n()
+    }, s = {
         checkPhone: function () {
             var e = $(".js-input-name").val();
             if ("86" != $(".js-code-btn span").text())e.length > 5 && $(".js-btn-next").removeClass("disabled"); else {
@@ -18,14 +29,14 @@ $(function () {
                     if (a.lastIndex = 0, !a.test(t))return
                 }
                 $(".js-btn-send a").attr("disabled", "disabled").addClass("disabled");
-                var i = $(".js-verify").val(), r = {phone: t, typecode: e};
+                var i = $(".js-verify").val(), r = {mobile: t, typecode: e};
                 i ? r.verify = i : r.type = 1, $.ajax({
                     url: "/laravel-sms/verify-code",
                     data: r,
                     method: "get",
                     dataType: "json",
                     success: function (e) {
-                        $(".js-btn-send a").removeAttr("disabled").removeClass("disabled"), 10001 == e.status ? ($(".js-btn-send").html('<div class="send-timer js-btn-send">重新发送<span>60</span></div>'), $(".verify-box,.js-verify-mask").hide(), s.showPhoneVerity()) : 10005 == e.status ? ($(".mask-view").show(), $(".verify-box").show()) : (11001 == e.status && $(o).attr("disabled", "disabled").addClass("disabled"), 90004 == e.status ? ($(".js-verify").parents(".account-form-group").find(".account-form-tip").html(e.msg).show(), n()) : $(".js-error").show().html(e.msg))
+                        $(".js-btn-send a").removeAttr("disabled").removeClass("disabled"), 10001 == e.status ? ($(".js-btn-send").html('<div class="send-timer js-btn-send">重新发送<span>60</span></div>'), $(".verify-box,.js-verify-mask").hide(), s.showPhoneVerity()) : 10005 == e.status ? ($(".mask-view").show(), $(".verify-box").show()) : (11001 == e.status && $(o).attr("disabled", "disabled").addClass("disabled"), 90004 == e.status ? ($(".js-verify").parents(".account-form-group").find(".account-form-tip").html(e.message).show(), n()) : $(".js-error").show().html(e.message))
                     },
                     error: function () {
                         $(".js-error").show().html("服务错误，稍后重试")
@@ -36,7 +47,7 @@ $(function () {
             var e = $(".js-btn-send span").text();
             if (e > 1)e--, $(".js-btn-send span").text(e), setTimeout(s.showPhoneVerity, 1e3); else {
                 var o = '<a href="javascript:void(0)" class="btn-send-verify js-btn-resend">重发短信</a>';
-                "86" == $(".js-code-btn span").text() && (o += '<a href="javascript:void(0)" class="btn-send-verify js-btn-voice">语音验证码</a>'), $(".js-btn-send").html(o)
+                 $(".js-btn-send").html(o)
             }
         }, phoneRegister: function () {
             var e = this;
@@ -51,44 +62,27 @@ $(function () {
                 }
                 if (4 != $(".js-phone-verify").val().length)return void $(".js-phone-verify").parents(".account-form-group").find(".account-form-tip").html("请输入短信验证码").show();
                 var s = {
-                    phone: n,
+                    mobile: n,
                     code: $(".js-phone-verify").val(),
                     remember: 0,
                     referer: window.location.protocol + "//" + window.location.hostname,
                     auto_register: 1
                 };
                 $(this).text("正在登录...").attr("disabled", "disabled").addClass("disabled"), $.ajax({
-                    url: "/passport/user/phonelogin",
+                    url: "/wap/account/check",
                     data: s,
-                    method: "post",
+                    method: "get",
                     dataType: "json",
                     success: function (e) {
-                        if (10020 == e.status) {
-                            var n = "", a = "十分抱歉，由于您的账号最近在实战中存在严重违规的情况，已做冻结账号处理";
-                            n = t(a, !0, "shizhan"), $.dialog(n, {title: "提示", modal: !0})
-                        } else if (10021 == e.status) {
-                            var n = "", a = "十分抱歉，由于您的账号最近在实战中被多次警告，已做冻结账号处理";
-                            n = t(a, !0, "shizhan"), $.dialog(n, {title: "提示", modal: !0})
-                        } else if (10022 == e.status) {
-                            var n = "", a = "十分抱歉，由于您的账号最近在慕课网被多次警告，已做冻结账号处理";
-                            n = t(a, !0, "imooc"), $.dialog(n, {title: "提示", modal: !0})
-                        } else if (10006 == e.status) {
-                            var n = "", a = "十分抱歉，由于您的账号最近在慕课网中存在严重违规的情况，已做冻结账号处理";
-                            n = t(a, !0, "imooc"), $.dialog(n, {title: "提示", modal: !0})
-                        } else if (10001 == e.status)if (e.caution) {
-                            var n = t(e.caution, !1);
-                            $.dialog(n, {
-                                title: "提示", modal: !0, callback: function () {
-                                    window.location.href = "http://www.imooc.com/index/usercheck?uid=" + e.data.userInfo.uid
-                                }
-                            })
-                        } else imoocSSO.crossDomainAction(function () {
-                            window.location.replace(o())
-                        }), imoocSSO.setCrossDomainCookie(e.data.url);
-                        10001 != e.status || e.caution ? zhuge.track("注册失败", {"平台": "wap"}) : zhuge.track("注册成功", {
-                            "平台": "wap",
-                            "用户uid": ""
-                        })
+                        if(e.status==10020){
+                            if(e.mobile){
+                                $(".js-error").show().html(e.mobile);
+                            }
+                            if(e.code){
+                                $(".js-error").show().html(e.code);
+                            }
+                            $('.account-form-btn').text("登录").removeAttr("disabled").removeClass("disabled")
+                        }
                     },
                     error: function () {
                         $(".js-error").show().html("服务错误，稍后重试"), $(e).text("登录").removeAttr("disabled").removeClass("disabled"), zhuge.track("注册失败", {"平台": "wap"})

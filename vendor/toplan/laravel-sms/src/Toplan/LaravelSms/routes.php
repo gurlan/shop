@@ -9,6 +9,6 @@ $attributes = array_merge([
 
 Route::group($attributes, function () {
     Route::get('info', 'Toplan\Sms\SmsController@getInfo');
-    Route::post('verify-code', 'Toplan\Sms\SmsController@postSendCode');
-    Route::post('voice-verify', 'Toplan\Sms\SmsController@postVoiceVerify');
+    Route::get('verify-code', 'Toplan\Sms\SmsController@postSendCode');
+    Route::get('voice-verify', 'Toplan\Sms\SmsController@postVoiceVerify');
 });

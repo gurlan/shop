@@ -92,7 +92,8 @@
     </div>
 </div>
 <script type="text/javascript" src="{{asset('wap/static/common/js/jquery-2.1.0.min_ac9f840.js')}}" ></script>
-
+<script type="text/javascript" src="{{asset('wap/static/js/account/areacode_62e754a.js')}}" ></script>
+<script type="text/javascript" src="{{asset('wap/static/common/js/moco.min_281f9ec.js')}}" ></script>
 <script type="text/javascript" src="{{asset('wap/static/js/account/register_dfa0107.js')}}" ></script>
 
 @include('wap.public.foot')
