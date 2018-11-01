@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Wap;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Toplan\Sms\Facades\SmsManager;
 
@@ -24,11 +25,26 @@ class AccountController extends Controller{
         return view('wap.account.login');
     }
 
-    public function check(Request $request,UserService $userService){
+    /**
+     * 退出
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout(){
+        Auth::logout();
+        return redirect(route('wap.account.login'));
+    }
+
+    /**
+     * 登录验证
+     * @param Request $request
+     * @param UserService $userService
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function check(Request $request, UserService $userService){
 //验证数据
         $validator = Validator::make($request->all(), [
             'mobile'     => 'bail|required|confirm_mobile_not_change',
-            //'code' => 'bail|required|verify_code',
+          //  'code' => 'bail|required|verify_code',
             //more...
         ],[
             'mobile.required'=>'手机号必填',

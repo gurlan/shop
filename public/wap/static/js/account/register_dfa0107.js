@@ -83,6 +83,9 @@ $(function () {
                             }
                             $('.account-form-btn').text("登录").removeAttr("disabled").removeClass("disabled")
                         }
+                        if (e.status == 302) {
+                            location.href = e.url;
+                        }
                     },
                     error: function () {
                         $(".js-error").show().html("服务错误，稍后重试"), $(e).text("登录").removeAttr("disabled").removeClass("disabled"), zhuge.track("注册失败", {"平台": "wap"})

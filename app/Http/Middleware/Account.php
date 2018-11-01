@@ -18,7 +18,7 @@ class Account
     {
 
 
-        if(!Auth::check()){
+        if(!Auth::check() and !Auth::viaRemember()){
 
            return redirect(route('wap.account.login'));
         }

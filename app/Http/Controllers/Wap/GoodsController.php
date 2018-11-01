@@ -38,6 +38,13 @@ class GoodsController extends Controller{
         return view('wap.goods.chapter')->with('chapter',$directory)->with('goods',$goodsInfo);
     }
 
+    /**
+     * 购买视图
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function buy(){
+        return view('wap.goods.buy');
+    }
 
 
 }

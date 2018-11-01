@@ -52,21 +52,26 @@ class UserService
             // 用户是激活状态，没有被暂停，而且存在
             $user_id = Auth::user()->id;
             $this->user->login_num($user_id);
-           return redirect($request->refer);
+            $res['status'] = 302;
+            $res['url'] = $request->referer;
+           return $res;
         }
-            echo  6666;
-        var_dump(Auth::attempt(['mobile' => $mobile]));
-        die;
+
+      //  var_dump(Auth::attempt(['mobile' => $mobile]));
+
 
         $data['user_name'] = $this->generate_username();
         $data['mobile'] = $mobile;
         $data['add_time'] = time();
         $data['last_login'] = time();
+        $data['password'] = Hash::make('');
         $data['login_num'] = 1;
         $this->user->insert($data);
         if (Auth::attempt(['mobile' => $mobile])) {
             // 用户是激活状态，没有被暂停，而且存在
-            return redirect($request->refer);
+            $res['status'] = 302;
+            $res['url'] = $request->referer;
+            return $res;
         }
     }
 

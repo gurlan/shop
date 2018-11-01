@@ -83,7 +83,11 @@ Route::namespace('Wap')->prefix('wap')->name('wap.')->group(function(){
 
     /*账号*/
     Route::get('/account/login','AccountController@login')->name('account.login');
+    Route::get('/account/logout','AccountController@logout')->name('account.logout');
     Route::get('/account/check','AccountController@check')->name('account.check');
+
+    Route::get('/coupon/index','CouponController@index')->name('coupon.index');
+
 
 });
 
@@ -93,6 +97,7 @@ Route::namespace('Wap')->prefix('wap')->name('wap.')->middleware('account')->gro
     /*商品*/
     Route::get('/goods/buy','GoodsController@buy')->name('goods.buy');
 
+    Route::get('/user','UserController@index')->name('user.index');
 
 
 });

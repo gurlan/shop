@@ -17,10 +17,10 @@ class BannerService
 {
     protected  $banner;
 
-    public function __construct(Banner $banner,Client $client)
+    public function __construct(Banner $banner)
     {
         $this->banner = $banner;
-        $this->redis = $client;
+
     }
 
 
@@ -29,12 +29,9 @@ class BannerService
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getList($where = array()){
-        if($this->redis->exists('banner')){
-            $banner = $this->redis->get('banner');
-            return json_decode($banner,true);
-        }
+
         $banner =  $this->banner->getList($where);
-        $this->redis->set('bannerList',json_encode($banner));
+
         return $banner;
     }
 
