@@ -16,42 +16,41 @@
     <link rel="stylesheet" href="{{asset('wap/static/css/act/newcomer/wap_6c0de2f.css')}}"/>
     <link rel="stylesheet" href="{{asset('wap/static/css/act/newcomer/moco.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('wap/static/common/css/common_3534317.css')}}"/>
-
 </head>
-
+<script>
+    var isLogin = {{\Illuminate\Support\Facades\Auth::id()}};
+    var isApp = false;
+</script>
 <body>
 <div class='header'>
     <div class='clearfix top' >
-        <a class='logo' title='慕课网' href='https://www.imooc.com'><img src='/static/wap/static/img/act/newcomer/logo.svg' /></a>
+        <a class='logo' title='慕课网' href='https://www.imooc.com'><img src='' /></a>
         <a href='https://www.imooc.com' class='return clearfix'>返回首页</a>
     </div>
 
 
     <div class="share-box-wrap clearfix">
-        <a href="javascript:void(0);" class="js-share-btn share-btn imwap-share" title="分享">
-        </a>
+        <a href="javascript:void(0);" class="js-share-btn share-btn imwap-share" title="分享"></a>
     </div>
 
 </div>
 
-<div class="get-btn js-get-btn " data-is_new_user="false">一键领取优惠券</div>
+<div class="get-btn js-get-btn " data-is_new_user="{{$flag}}">一键领取优惠券</div>
+
 <div class="js-moco-getcoupon" style="display: none;"></div>
 
 <div class="coupon_con">
 
 
-    <div class='coupon  coupon-1' data-marking='xrzx_5'>
-    </div>
+    <div class='coupon  coupon-1' data-marking='xrzx_5'></div>
 
 
 
-    <div class='coupon  coupon-2' data-marking='xrzx_10'>
-    </div>
+    <div class='coupon  coupon-2' data-marking='xrzx_10'></div>
 
 
 
-    <div class='coupon  coupon-3' data-marking='xrzx_20'>
-    </div>
+    <div class='coupon  coupon-3' data-marking='xrzx_20'></div>
 
 
 </div>
@@ -67,14 +66,9 @@
         5、若订单未支付，仅提交订单后取消或关闭订单，订单中所使用的优惠券将返还回个人账户；<br>
         6、一张优惠券仅限于单笔订单消费抵用，不可叠加使用。使用后的优惠券不找零，不兑换；<br>
         7、活动时间：即日起至2018年12月31日24:00。
-
     </div>
 </div>
-
 <div class='footer'>Copyright © 2018 imooc.com All Rights Reserved | 京ICP备 13046642号-2</div>
-
-
-
 <script type="text/javascript" src="{{asset('wap/static/js/act/wap_newcomer_a91b79f.js')}}"></script>
 </body>
 

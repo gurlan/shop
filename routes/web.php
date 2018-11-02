@@ -99,5 +99,7 @@ Route::namespace('Wap')->prefix('wap')->name('wap.')->middleware('account')->gro
 
     Route::get('/user','UserController@index')->name('user.index');
 
+    Route::get('/coupon/get','CouponController@getCoupon')->name('coupon.get');
+
 
 });
