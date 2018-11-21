@@ -155,6 +155,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <li>
                                 <a href="{{route('admin.admin.index')}}">管理员列表</a>
                             </li>
+                            <li>
+                                <a href="{{route('admin.role.index')}}">角色列表</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

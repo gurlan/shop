@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * App\admin
@@ -22,7 +23,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class Admin extends Authenticatable
 {
-
+    use  HasRoles;
     protected $table = 'admin';
     public $timestamps = false; //不维护时间戳
     public function adminList(){

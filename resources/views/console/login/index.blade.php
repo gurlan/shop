@@ -22,6 +22,7 @@
             <div class="logo_box">
                 <h3>欢迎你</h3>
                 <form action="{{route('admin.doLogin')}}" id="form" method="post">
+
                     @csrf
                     <div class="input_outer">
                         <span class="u_user"></span>
