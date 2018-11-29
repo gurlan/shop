@@ -96,6 +96,8 @@ Route::namespace('Wap')->prefix('wap')->name('wap.')->group(function(){
 
     Route::get('coupon/index','CouponController@index')->name('coupon.index');
 
+    Route::get('cas','AccountController@cas');
+
 
 });
 

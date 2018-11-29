@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Toplan\Sms\Facades\SmsManager;
+use phpCAS;
 
 
 class AccountController extends Controller{
@@ -63,6 +64,47 @@ class AccountController extends Controller{
         }
 
         return $userService->loginOrRegister($request);
+
+    }
+
+    public function cas(Request $request){
+
+        $this->init_cas_client();
+        $url = urlencode(env('CAS_CLIENT'));
+        // dd($url);
+        phpCAS::setServerLoginUrl(env('CAS_SERVER_LOGIN') . "?service=".$url);
+        if (phpCAS::checkAuthentication()) {
+            $account = phpCAS::getUser();
+
+            dd($account);
+        } else {
+            phpCAS::forceAuthentication();
+        }
+    }
+
+
+    /**
+     * 初始化cas 客户端
+     * User:xuml
+     * 2018/5/11 12:18
+     */
+    protected  function init_cas_client(){
+        // initialize phpCAS
+        $casConfig = config('cas');
+
+        //dd($casConfig);
+        //phpCAS::client(CAS_VERSION_2_0,'服务地址',端口号,'cas的访问地址');
+        phpCAS::client(CAS_VERSION_2_0,$casConfig['cas_hostname'],
+            intval($casConfig['cas_port']),
+            $casConfig['cas_uri'],FALSE);
+        phpCAS::setDebug($casConfig['cas_debug']);
+        //no SSL validation for the CAS server 不使用SSL服务校验
+        phpCAS::setNoCasServerValidation();
+
+        phpCAS::setSingleSignoutCallback("logoutCallback");
+        phpCAS::setServerLogoutURL($casConfig['cas_logout']);
+
+        phpCAS::handleLogoutRequests();
 
     }
 
